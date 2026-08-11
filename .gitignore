@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.databricks/
+workshop/apps/agent-casehub/mlruns/
+workshop/apps/agent-casehub/mlflow.db
+
+# Copied in from workshop/data/outlook_initial at deploy time.
+workshop/apps/mcp-mocked-outlook/src/app/data/outlook_seed.json
+
+# Exported from workshop/notebooks/uv.lock at publish time.
+workshop/notebooks/requirements.txt

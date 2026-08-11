@@ -1,0 +1,473 @@
+[
+  {
+    "client_id": "CL-001",
+    "legal_name": "Alpine Retail a.s.",
+    "legal_form": "a.s.",
+    "industry": "Sports and outdoor equipment retail",
+    "description": "Sells outdoor clothing, ski equipment and bicycles through 38 stores in Czechia and Slovakia, alongside a smaller online shop. Ski hire and servicing at the mountain stores makes winter the busiest quarter for temporary staff.",
+    "hq_city": "Brno",
+    "country": "CZ",
+    "employees": 1240,
+    "plan": "Professional",
+    "months_as_customer": 13,
+    "account_manager": "Tomáš Richter",
+    "modules": [
+      "Bookkeeping",
+      "Invoicing",
+      "Payroll",
+      "Banking"
+    ],
+    "health_note": "Payroll comes in over SFTP from their own HR system. Whole employee master was loaded from their old provider when they joined.",
+    "contacts": [
+      {
+        "name": "Markéta Sedláčková",
+        "role": "Finance Director",
+        "email": "marketa.sedlackova@alpineretail.cz",
+        "is_primary": true
+      },
+      {
+        "name": "Lenka Marešová",
+        "role": "Payroll Manager",
+        "email": "lenka.maresova@alpineretail.cz",
+        "is_primary": false
+      },
+      {
+        "name": "Jakub Horák",
+        "role": "IT Manager",
+        "email": "jakub.horak@alpineretail.cz",
+        "is_primary": false
+      }
+    ],
+    "rate_per_employee": 52,
+    "minimum_monthly_charge": 11800,
+    "term_months": 36,
+    "discount_pct": 12
+  },
+  {
+    "client_id": "CL-002",
+    "legal_name": "Kroupa Obrábění s.r.o.",
+    "legal_form": "s.r.o.",
+    "industry": "Precision engineering",
+    "description": "Machines gearbox shafts and bushings at its plant in Ostrava, supplying three Czech and German car-part makers under annual volume contracts.",
+    "hq_city": "Ostrava",
+    "country": "CZ",
+    "employees": 210,
+    "plan": "Enterprise",
+    "months_as_customer": 61,
+    "account_manager": "Petra Nováková",
+    "modules": [
+      "Bookkeeping",
+      "Invoicing",
+      "Payroll",
+      "Banking",
+      "Tax"
+    ],
+    "health_note": null,
+    "contacts": [
+      {
+        "name": "Věra Fojtíková",
+        "role": "Finance Director",
+        "email": "vera.fojtikova@kroupa-obrabeni.cz",
+        "is_primary": true
+      },
+      {
+        "name": "Blanka Kavková",
+        "role": "Payroll Manager",
+        "email": "blanka.kavkova@kroupa-obrabeni.cz",
+        "is_primary": false
+      },
+      {
+        "name": "Pavel Hrabec",
+        "role": "Chief Accountant",
+        "email": "pavel.hrabec@kroupa-obrabeni.cz",
+        "is_primary": false
+      }
+    ],
+    "rate_per_employee": 79,
+    "minimum_monthly_charge": 39500,
+    "term_months": 24,
+    "discount_pct": 0
+  },
+  {
+    "client_id": "CL-003",
+    "legal_name": "Naldex s.r.o.",
+    "legal_form": "s.r.o.",
+    "industry": "Road freight and warehousing",
+    "description": "Road freight carrier running 130 trucks on routes between Czechia, Germany and Austria. Two rented warehouses near Plzeň handle cross-docking for retail customers.",
+    "hq_city": "Plzeň",
+    "country": "CZ",
+    "employees": 165,
+    "plan": "Standard",
+    "months_as_customer": 9,
+    "account_manager": "Tomáš Richter",
+    "modules": [
+      "Bookkeeping",
+      "Payroll",
+      "Banking"
+    ],
+    "health_note": "Submits payroll late most months.",
+    "contacts": [
+      {
+        "name": "Radek Bláha",
+        "role": "Finance Director",
+        "email": "r.blaha@naldex.cz",
+        "is_primary": true
+      },
+      {
+        "name": "Jiří Pešek",
+        "role": "Payroll Manager",
+        "email": "j.pesek@naldex.cz",
+        "is_primary": false
+      }
+    ],
+    "rate_per_employee": 39,
+    "minimum_monthly_charge": 3900,
+    "term_months": 12,
+    "discount_pct": 0
+  },
+  {
+    "client_id": "CL-004",
+    "legal_name": "Fenmark s.r.o.",
+    "legal_form": "s.r.o.",
+    "industry": "Custom software development",
+    "description": "Custom software house working for banks and insurers, building loan origination, policy administration and regulatory reporting systems under multi-year framework contracts.",
+    "hq_city": "Praha",
+    "country": "CZ",
+    "employees": 120,
+    "plan": "Professional",
+    "months_as_customer": 44,
+    "account_manager": "Martin Kovář",
+    "modules": [
+      "Bookkeeping",
+      "Invoicing",
+      "Payroll",
+      "Banking",
+      "Tax"
+    ],
+    "health_note": null,
+    "contacts": [
+      {
+        "name": "Tomáš Sýkora",
+        "role": "Chief Accountant",
+        "email": "tomas@fenmark.cz",
+        "is_primary": true
+      },
+      {
+        "name": "Klára Hejduková",
+        "role": "Finance Director",
+        "email": "klara@fenmark.cz",
+        "is_primary": false
+      },
+      {
+        "name": "Lucie Chalupová",
+        "role": "IT Manager",
+        "email": "lucie@fenmark.cz",
+        "is_primary": false
+      }
+    ],
+    "rate_per_employee": 55,
+    "minimum_monthly_charge": 11800,
+    "term_months": 24,
+    "discount_pct": 7
+  },
+  {
+    "client_id": "CL-005",
+    "legal_name": "Středomoravská mlékárna a.s.",
+    "legal_form": "a.s.",
+    "industry": "Dairy processing",
+    "description": "A single plant turns milk from central Moravian farms into drinking milk, yoghurt and cheese for Czech and Slovak retail chains.",
+    "hq_city": "Olomouc",
+    "country": "CZ",
+    "employees": 280,
+    "plan": "Professional",
+    "months_as_customer": 31,
+    "account_manager": "Petra Nováková",
+    "modules": [
+      "Bookkeeping",
+      "Invoicing",
+      "Payroll",
+      "Banking"
+    ],
+    "health_note": null,
+    "contacts": [
+      {
+        "name": "Renata Zatloukalová",
+        "role": "Payroll Manager",
+        "email": "renata.zatloukalova@smlekarna.cz",
+        "is_primary": true
+      },
+      {
+        "name": "Šárka Vaculíková",
+        "role": "Finance Director",
+        "email": "sarka.vaculikova@smlekarna.cz",
+        "is_primary": false
+      },
+      {
+        "name": "Karel Přikryl",
+        "role": "Chief Accountant",
+        "email": "karel.prikryl@smlekarna.cz",
+        "is_primary": false
+      }
+    ],
+    "rate_per_employee": 54,
+    "minimum_monthly_charge": 11800,
+    "term_months": 36,
+    "discount_pct": 8
+  },
+  {
+    "client_id": "CL-006",
+    "legal_name": "Stříbrné lázně a.s.",
+    "legal_form": "a.s.",
+    "industry": "Spa hotels",
+    "description": "Operates three spa hotels in Karlovy Vary that share a single treatment centre for balneology and physiotherapy. Stays are mostly multi-week, booked through Czech and German health insurers as well as directly by guests.",
+    "hq_city": "Karlovy Vary",
+    "country": "CZ",
+    "employees": 290,
+    "plan": "Professional",
+    "months_as_customer": 17,
+    "account_manager": "Tomáš Richter",
+    "modules": [
+      "Bookkeeping",
+      "Invoicing",
+      "Payroll"
+    ],
+    "health_note": "Headcount moves by several hundred between seasons. Queries the employee count on the invoice most quarters.",
+    "contacts": [
+      {
+        "name": "Zdeněk Vlček",
+        "role": "Finance Director",
+        "email": "zdenek.vlcek@stribrne-lazne.cz",
+        "is_primary": true
+      },
+      {
+        "name": "Alena Pospíchalová",
+        "role": "Payroll Manager",
+        "email": "alena.pospichalova@stribrne-lazne.cz",
+        "is_primary": false
+      },
+      {
+        "name": "Michaela Ryšavá",
+        "role": "HR Manager",
+        "email": "michaela.rysava@stribrne-lazne.cz",
+        "is_primary": false
+      }
+    ],
+    "rate_per_employee": 59,
+    "minimum_monthly_charge": 11800,
+    "term_months": 12,
+    "discount_pct": 0
+  },
+  {
+    "client_id": "CL-007",
+    "legal_name": "Hrivnák stav s.r.o.",
+    "legal_form": "s.r.o.",
+    "industry": "Commercial construction",
+    "description": "General contractor for retail units, warehouses and office fit-outs around Bratislava. Permanent staff cover estimating, site management and procurement; the trades are subcontracted.",
+    "hq_city": "Bratislava",
+    "country": "SK",
+    "employees": 85,
+    "plan": "Standard",
+    "months_as_customer": 26,
+    "account_manager": "Martin Kovář",
+    "modules": [
+      "Bookkeeping",
+      "Payroll",
+      "Banking"
+    ],
+    "health_note": null,
+    "contacts": [
+      {
+        "name": "Ľuboš Hrivnák",
+        "role": "Managing Director",
+        "email": "hrivnak@hrivnakstav.sk",
+        "is_primary": true
+      },
+      {
+        "name": "Andrea Halajová",
+        "role": "Chief Accountant",
+        "email": "halajova@hrivnakstav.sk",
+        "is_primary": false
+      }
+    ],
+    "rate_per_employee": 39,
+    "minimum_monthly_charge": 3900,
+    "term_months": 24,
+    "discount_pct": 0
+  },
+  {
+    "client_id": "CL-008",
+    "legal_name": "Ambulance Vitalis s.r.o.",
+    "legal_form": "s.r.o.",
+    "industry": "Outpatient healthcare",
+    "description": "Runs two outpatient clinics in Brno, one on the eastern edge of the city and one near the main station, covering general practice, internal medicine, dermatology and physiotherapy. Most doctors invoice as OSVČ rather than sitting on payroll.",
+    "hq_city": "Brno",
+    "country": "CZ",
+    "employees": 74,
+    "plan": "Professional",
+    "months_as_customer": 52,
+    "account_manager": "Petra Nováková",
+    "modules": [
+      "Bookkeeping",
+      "Invoicing",
+      "Payroll",
+      "Banking"
+    ],
+    "health_note": "Most of their close is supplier invoices rather than payroll. Asked twice now about bulk invoice import.",
+    "contacts": [
+      {
+        "name": "Lenka Bednářová",
+        "role": "Chief Accountant",
+        "email": "lenka.bednarova@vitalis.cz",
+        "is_primary": true
+      },
+      {
+        "name": "Petr Zavadil",
+        "role": "Office Manager",
+        "email": "petr.zavadil@vitalis.cz",
+        "is_primary": false
+      }
+    ],
+    "rate_per_employee": 59,
+    "minimum_monthly_charge": 11800,
+    "term_months": 36,
+    "discount_pct": 0
+  },
+  {
+    "client_id": "CL-009",
+    "legal_name": "Hudák Market s.r.o.",
+    "legal_form": "s.r.o.",
+    "industry": "Grocery retail",
+    "description": "Eleven neighbourhood grocery shops in Košice and the surrounding villages.",
+    "hq_city": "Košice",
+    "country": "SK",
+    "employees": 58,
+    "plan": "Standard",
+    "months_as_customer": 4,
+    "account_manager": "Martin Kovář",
+    "modules": [
+      "Bookkeeping",
+      "Payroll"
+    ],
+    "health_note": null,
+    "contacts": [
+      {
+        "name": "Ondrej Hudák",
+        "role": "Managing Director",
+        "email": "kancelaria@hudakmarket.sk",
+        "is_primary": true
+      },
+      {
+        "name": "Zuzana Bodnárová",
+        "role": "Chief Accountant",
+        "email": "uctaren@hudakmarket.sk",
+        "is_primary": false
+      }
+    ],
+    "rate_per_employee": 39,
+    "minimum_monthly_charge": 3900,
+    "term_months": 12,
+    "discount_pct": 0
+  },
+  {
+    "client_id": "CL-010",
+    "legal_name": "Bartoň a partneři s.r.o.",
+    "legal_form": "s.r.o.",
+    "industry": "Tax advisory and bookkeeping",
+    "description": "Tax advisory and bookkeeping practice in Praha that keeps the accounts, payroll and statutory filings for 40 client companies.",
+    "hq_city": "Praha",
+    "country": "CZ",
+    "employees": 34,
+    "plan": "Professional",
+    "months_as_customer": 68,
+    "account_manager": "Tomáš Richter",
+    "modules": [
+      "Bookkeeping",
+      "Invoicing",
+      "Tax",
+      "Banking"
+    ],
+    "health_note": "Runs all 40 client entities in one tenant instead of one each. Not how the product is meant to be used. Worth a look before renewal.",
+    "contacts": [
+      {
+        "name": "Iveta Vaníčková",
+        "role": "Financial Controller",
+        "email": "iveta.vanickova@bartonpartneri.cz",
+        "is_primary": true
+      },
+      {
+        "name": "Ondřej Bartoň",
+        "role": "Managing Director",
+        "email": "ondrej.barton@bartonpartneri.cz",
+        "is_primary": false
+      }
+    ],
+    "rate_per_employee": null,
+    "minimum_monthly_charge": 11800,
+    "term_months": 24,
+    "discount_pct": 0
+  },
+  {
+    "client_id": "CL-011",
+    "legal_name": "Agro Ševětín a.s.",
+    "legal_form": "a.s.",
+    "industry": "Arable farming",
+    "description": "Farms 3,940 hectares of wheat, rapeseed and maize in the České Budějovice district, running its own grain dryer and 12,000 t of silo capacity at Ševětín.",
+    "hq_city": "České Budějovice",
+    "country": "CZ",
+    "employees": 62,
+    "plan": "Standard",
+    "months_as_customer": 23,
+    "account_manager": "Petra Nováková",
+    "modules": [
+      "Bookkeeping",
+      "Payroll",
+      "Banking"
+    ],
+    "health_note": null,
+    "contacts": [
+      {
+        "name": "Jitka Šebestová",
+        "role": "Chief Accountant",
+        "email": "j.sebestova@agrosevetin.cz",
+        "is_primary": true
+      }
+    ],
+    "rate_per_employee": 39,
+    "minimum_monthly_charge": 3900,
+    "term_months": 12,
+    "discount_pct": 0
+  },
+  {
+    "client_id": "CL-012",
+    "legal_name": "Tenzo s.r.o.",
+    "legal_form": "s.r.o.",
+    "industry": "Online sports retail",
+    "description": "An online shop for running and cycling gear, shipping from one warehouse in Liberec. Half the year's revenue lands between October and January.",
+    "hq_city": "Liberec",
+    "country": "CZ",
+    "employees": 28,
+    "plan": "Professional",
+    "months_as_customer": 38,
+    "account_manager": "Tomáš Richter",
+    "modules": [
+      "Bookkeeping",
+      "Invoicing",
+      "Payroll",
+      "Banking",
+      "Tax"
+    ],
+    "health_note": null,
+    "contacts": [
+      {
+        "name": "Marek Hruška",
+        "role": "Managing Director",
+        "email": "marek@tenzo.cz",
+        "is_primary": true
+      }
+    ],
+    "rate_per_employee": 59,
+    "minimum_monthly_charge": 11800,
+    "term_months": 12,
+    "discount_pct": 0
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "incident_id": "INC-2041",
+    "days_ago": 96,
+    "component": "web",
+    "severity": "S1",
+    "unavailable_minutes": 214,
+    "summary": "Web app down during the morning peak",
+    "detail": "07:12 503s across the board. Session store migration from overnight (CHG-0418) sized the connection pool for the old cache cluster, web tier ran out of connections once morning load hit. Rolled back 10:46, recovered immediately.",
+    "root_cause": "Connection pool sized for the old cache cluster",
+    "linked_change_id": "CHG-0418",
+    "customers_affected": "all"
+  },
+  {
+    "incident_id": "INC-2078",
+    "days_ago": 118,
+    "component": "api",
+    "severity": "S2",
+    "unavailable_minutes": 47,
+    "summary": "API report requests timing out on long queries",
+    "detail": "Reports taking more than ~30s started failing with 504. Gateway upgrade (CHG-0402) reset the upstream idle timeout to the 30s default, previous config was 120s. Fixed by restoring the timeout.",
+    "root_cause": "Upstream idle timeout reset to default on gateway upgrade",
+    "linked_change_id": "CHG-0402",
+    "customers_affected": "API users only"
+  },
+  {
+    "incident_id": "INC-2103",
+    "days_ago": 61,
+    "component": "sftp",
+    "severity": "S2",
+    "unavailable_minutes": 38,
+    "summary": "SFTP host key mismatch on one gateway node",
+    "detail": "About 1 in 3 connections failing host key verification. Cert rotation (CHG-0447) didn't take on one of the three gateway nodes, kept serving the old cert until restarted.",
+    "root_cause": "Cert rotation not picked up on one node until restart",
+    "linked_change_id": "CHG-0447",
+    "customers_affected": "SFTP users only"
+  },
+  {
+    "incident_id": "INC-2140",
+    "days_ago": 25,
+    "component": "payroll_engine",
+    "severity": "S3",
+    "unavailable_minutes": 22,
+    "summary": "Calculation queue stalled",
+    "detail": "Runs stuck in CALCULATING for ~20 min. One worker deadlocked on a lock held by a cancelled job. Restarted the worker, cleared immediately. No runs failed, no payments delayed.",
+    "root_cause": "Lock held by a cancelled job, never released",
+    "linked_change_id": null,
+    "customers_affected": "runs submitted in the window"
+  },
+  {
+    "incident_id": "INC-2055",
+    "days_ago": 108,
+    "component": "web",
+    "severity": "S3",
+    "unavailable_minutes": 0,
+    "summary": "Run detail screen slow for large customers",
+    "detail": "Customers over 1000 employees, run detail screen taking up to 40s to render. Unindexed sort on the redesigned screen (CHG-0388). Added the index.",
+    "root_cause": "Missing index on the per-employee status query",
+    "linked_change_id": "CHG-0388",
+    "customers_affected": "customers over 1000 employees"
+  },
+  {
+    "incident_id": "INC-2091",
+    "days_ago": 88,
+    "component": "banking",
+    "severity": "S2",
+    "unavailable_minutes": 0,
+    "summary": "Slovak payments delayed by one value date",
+    "detail": "Payments to the new Slovak partner (CHG-0374) went out after that partner's earlier cut-off, settled a day late. Routing config still had the old partner's cut-off time.",
+    "root_cause": "Cut-off time not updated for the second banking partner",
+    "linked_change_id": "CHG-0374",
+    "customers_affected": "Slovak payments"
+  },
+  {
+    "incident_id": "INC-2118",
+    "days_ago": 52,
+    "component": "payroll_engine",
+    "severity": "S3",
+    "unavailable_minutes": 0,
+    "summary": "Duplicate rows in rejection reports",
+    "detail": "Runs validated twice, rejection report lists each rejected row twice. Cosmetic only, underlying run data fine.",
+    "root_cause": "Report built from validation attempts rather than the run",
+    "linked_change_id": null,
+    "customers_affected": "few"
+  },
+  {
+    "incident_id": "INC-2126",
+    "days_ago": 41,
+    "component": "web",
+    "severity": "S4",
+    "unavailable_minutes": 0,
+    "summary": "Cut-off time displayed in UTC",
+    "detail": "Run summary showed cut-off in UTC instead of CET, looked 2h earlier than actual. No runs affected but 2 customers approved early because of it.",
+    "root_cause": "Timezone not applied when rendering the cut-off",
+    "linked_change_id": null,
+    "customers_affected": "cosmetic"
+  }
+]

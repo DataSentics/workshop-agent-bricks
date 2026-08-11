@@ -1,0 +1,1091 @@
+[
+  {
+    "client_id": "CL-001",
+    "cost_centres": [
+      {
+        "code": "HQ-BRNO-01",
+        "name": "Centrála Brno",
+        "kind": "office",
+        "city": "Brno",
+        "headcount_share": 0.07097
+      },
+      {
+        "code": "WHS-BRNO-01",
+        "name": "Centrální sklad Brno",
+        "kind": "warehouse",
+        "city": "Brno",
+        "headcount_share": 0.05
+      },
+      {
+        "code": "STORE-PRAHA-01",
+        "name": "Prodejna Praha - Chodov",
+        "kind": "store",
+        "city": "Praha",
+        "headcount_share": 0.04194
+      },
+      {
+        "code": "STORE-PRAHA-02",
+        "name": "Prodejna Praha - Nový Smíchov",
+        "kind": "store",
+        "city": "Praha",
+        "headcount_share": 0.03548
+      },
+      {
+        "code": "STORE-PRAHA-03",
+        "name": "Prodejna Praha - Černý Most",
+        "kind": "store",
+        "city": "Praha",
+        "headcount_share": 0.02581
+      },
+      {
+        "code": "STORE-PRAHA-04",
+        "name": "Prodejna Praha - Arkády Pankrác",
+        "kind": "store",
+        "city": "Praha",
+        "headcount_share": 0.02419
+      },
+      {
+        "code": "STORE-PRAHA-05",
+        "name": "Prodejna Praha - Letňany",
+        "kind": "store",
+        "city": "Praha",
+        "headcount_share": 0.02258
+      },
+      {
+        "code": "STORE-BRNO-01",
+        "name": "Prodejna Brno - Olympia",
+        "kind": "store",
+        "city": "Brno",
+        "headcount_share": 0.03387
+      },
+      {
+        "code": "STORE-BRNO-02",
+        "name": "Prodejna Brno - Vaňkovka",
+        "kind": "store",
+        "city": "Brno",
+        "headcount_share": 0.02419
+      },
+      {
+        "code": "STORE-OSTRA-01",
+        "name": "Prodejna Ostrava - Nová Karolina",
+        "kind": "store",
+        "city": "Ostrava",
+        "headcount_share": 0.03065
+      },
+      {
+        "code": "STORE-PLZEN-01",
+        "name": "Prodejna Plzeň - Olympia",
+        "kind": "store",
+        "city": "Plzeň",
+        "headcount_share": 0.02742
+      },
+      {
+        "code": "STORE-OLOM-01",
+        "name": "Prodejna Olomouc - Šantovka",
+        "kind": "store",
+        "city": "Olomouc",
+        "headcount_share": 0.02581
+      },
+      {
+        "code": "STORE-LIBER-01",
+        "name": "Prodejna Liberec - Nisa",
+        "kind": "store",
+        "city": "Liberec",
+        "headcount_share": 0.02581
+      },
+      {
+        "code": "STORE-HKRAL-01",
+        "name": "Prodejna Hradec Králové - Futurum",
+        "kind": "store",
+        "city": "Hradec Králové",
+        "headcount_share": 0.02097
+      },
+      {
+        "code": "STORE-CBUD-01",
+        "name": "Prodejna České Budějovice - IGY",
+        "kind": "store",
+        "city": "České Budějovice",
+        "headcount_share": 0.02097
+      },
+      {
+        "code": "STORE-PARD-01",
+        "name": "Prodejna Pardubice - Grand",
+        "kind": "store",
+        "city": "Pardubice",
+        "headcount_share": 0.01935
+      },
+      {
+        "code": "STORE-ZLIN-01",
+        "name": "Prodejna Zlín - Zlaté jablko",
+        "kind": "store",
+        "city": "Zlín",
+        "headcount_share": 0.01935
+      },
+      {
+        "code": "STORE-USTI-01",
+        "name": "Prodejna Ústí nad Labem - Forum",
+        "kind": "store",
+        "city": "Ústí nad Labem",
+        "headcount_share": 0.01774
+      },
+      {
+        "code": "STORE-JIHL-01",
+        "name": "Prodejna Jihlava - City Park",
+        "kind": "store",
+        "city": "Jihlava",
+        "headcount_share": 0.01613
+      },
+      {
+        "code": "STORE-KVARY-01",
+        "name": "Prodejna Karlovy Vary - Varyáda",
+        "kind": "store",
+        "city": "Karlovy Vary",
+        "headcount_share": 0.01613
+      },
+      {
+        "code": "STORE-SPIND-01",
+        "name": "Prodejna a půjčovna Špindlerův Mlýn",
+        "kind": "store",
+        "city": "Špindlerův Mlýn",
+        "headcount_share": 0.03226
+      },
+      {
+        "code": "STORE-PEC-01",
+        "name": "Prodejna a půjčovna Pec pod Sněžkou",
+        "kind": "store",
+        "city": "Pec pod Sněžkou",
+        "headcount_share": 0.02419
+      },
+      {
+        "code": "STORE-HARR-01",
+        "name": "Prodejna a půjčovna Harrachov",
+        "kind": "store",
+        "city": "Harrachov",
+        "headcount_share": 0.01774
+      },
+      {
+        "code": "STORE-LIPNO-01",
+        "name": "Prodejna a půjčovna Lipno nad Vltavou",
+        "kind": "store",
+        "city": "Lipno nad Vltavou",
+        "headcount_share": 0.01774
+      },
+      {
+        "code": "STORE-ZELRU-01",
+        "name": "Prodejna a půjčovna Železná Ruda",
+        "kind": "store",
+        "city": "Železná Ruda",
+        "headcount_share": 0.01613
+      },
+      {
+        "code": "STORE-DOMOR-01",
+        "name": "Prodejna a půjčovna Dolní Morava",
+        "kind": "store",
+        "city": "Dolní Morava",
+        "headcount_share": 0.01613
+      },
+      {
+        "code": "STORE-ROKY-01",
+        "name": "Prodejna a půjčovna Rokytnice nad Jizerou",
+        "kind": "store",
+        "city": "Rokytnice nad Jizerou",
+        "headcount_share": 0.01452
+      },
+      {
+        "code": "STORE-BRAT-01",
+        "name": "Predajňa Bratislava - Aupark",
+        "kind": "store",
+        "city": "Bratislava",
+        "headcount_share": 0.03387
+      },
+      {
+        "code": "STORE-BRAT-02",
+        "name": "Predajňa Bratislava - Eurovea",
+        "kind": "store",
+        "city": "Bratislava",
+        "headcount_share": 0.02581
+      },
+      {
+        "code": "STORE-BRAT-03",
+        "name": "Predajňa Bratislava - Bory Mall",
+        "kind": "store",
+        "city": "Bratislava",
+        "headcount_share": 0.02258
+      },
+      {
+        "code": "STORE-KOSIC-01",
+        "name": "Predajňa Košice - Aupark",
+        "kind": "store",
+        "city": "Košice",
+        "headcount_share": 0.02742
+      },
+      {
+        "code": "STORE-ZILIN-01",
+        "name": "Predajňa Žilina - Mirage",
+        "kind": "store",
+        "city": "Žilina",
+        "headcount_share": 0.02097
+      },
+      {
+        "code": "STORE-BBYST-01",
+        "name": "Predajňa Banská Bystrica - Europa",
+        "kind": "store",
+        "city": "Banská Bystrica",
+        "headcount_share": 0.01935
+      },
+      {
+        "code": "STORE-NITRA-01",
+        "name": "Predajňa Nitra - Mlyny",
+        "kind": "store",
+        "city": "Nitra",
+        "headcount_share": 0.01935
+      },
+      {
+        "code": "STORE-PRESO-01",
+        "name": "Predajňa Prešov - Eperia",
+        "kind": "store",
+        "city": "Prešov",
+        "headcount_share": 0.01774
+      },
+      {
+        "code": "STORE-POPRA-01",
+        "name": "Predajňa Poprad - Max",
+        "kind": "store",
+        "city": "Poprad",
+        "headcount_share": 0.01774
+      },
+      {
+        "code": "STORE-TREN-01",
+        "name": "Predajňa Trenčín - Laugaricio",
+        "kind": "store",
+        "city": "Trenčín",
+        "headcount_share": 0.01613
+      },
+      {
+        "code": "STORE-JASNA-01",
+        "name": "Predajňa a požičovňa Jasná",
+        "kind": "store",
+        "city": "Demänovská Dolina",
+        "headcount_share": 0.03226
+      },
+      {
+        "code": "STORE-TLOMN-01",
+        "name": "Predajňa a požičovňa Tatranská Lomnica",
+        "kind": "store",
+        "city": "Vysoké Tatry",
+        "headcount_share": 0.02419
+      },
+      {
+        "code": "STORE-DONOV-01",
+        "name": "Predajňa a požičovňa Donovaly",
+        "kind": "store",
+        "city": "Donovaly",
+        "headcount_share": 0.01452
+      }
+    ]
+  },
+  {
+    "client_id": "CL-002",
+    "cost_centres": [
+      {
+        "code": "VYR-01",
+        "name": "Soustružna CNC",
+        "kind": "production",
+        "city": "Ostrava",
+        "headcount_share": 0.2143
+      },
+      {
+        "code": "VYR-02",
+        "name": "Frézárna CNC",
+        "kind": "production",
+        "city": "Ostrava",
+        "headcount_share": 0.2285
+      },
+      {
+        "code": "VYR-03",
+        "name": "Brusírna",
+        "kind": "production",
+        "city": "Ostrava",
+        "headcount_share": 0.1048
+      },
+      {
+        "code": "VYR-04",
+        "name": "Montáž a kompletace",
+        "kind": "production",
+        "city": "Ostrava",
+        "headcount_share": 0.0857
+      },
+      {
+        "code": "VYR-05",
+        "name": "Nástrojárna",
+        "kind": "production",
+        "city": "Ostrava",
+        "headcount_share": 0.0429
+      },
+      {
+        "code": "KVL-01",
+        "name": "Kontrola kvality a metrologie",
+        "kind": "production",
+        "city": "Ostrava",
+        "headcount_share": 0.0667
+      },
+      {
+        "code": "UDR-01",
+        "name": "Údržba a energetika",
+        "kind": "production",
+        "city": "Ostrava",
+        "headcount_share": 0.0524
+      },
+      {
+        "code": "TPV-01",
+        "name": "TPV a programování CNC",
+        "kind": "office",
+        "city": "Ostrava",
+        "headcount_share": 0.0476
+      },
+      {
+        "code": "SKL-01",
+        "name": "Sklad a expedice",
+        "kind": "warehouse",
+        "city": "Ostrava",
+        "headcount_share": 0.0571
+      },
+      {
+        "code": "OBN-01",
+        "name": "Obchod a nákup",
+        "kind": "office",
+        "city": "Ostrava",
+        "headcount_share": 0.0381
+      },
+      {
+        "code": "SPR-01",
+        "name": "Vedení a správa",
+        "kind": "office",
+        "city": "Ostrava",
+        "headcount_share": 0.0619
+      }
+    ]
+  },
+  {
+    "client_id": "CL-003",
+    "cost_centres": [
+      {
+        "code": "DOP-PLZ-01",
+        "name": "Mezinárodní doprava",
+        "kind": "field",
+        "city": "Plzeň",
+        "headcount_share": 0.4
+      },
+      {
+        "code": "DOP-PLZ-02",
+        "name": "Vnitrostátní doprava a distribuce",
+        "kind": "field",
+        "city": "Plzeň",
+        "headcount_share": 0.2304
+      },
+      {
+        "code": "DOP-NYR-01",
+        "name": "Kontraktní doprava Nýřany",
+        "kind": "field",
+        "city": "Nýřany",
+        "headcount_share": 0.097
+      },
+      {
+        "code": "SKL-PLZ-01",
+        "name": "Sklad Borská pole",
+        "kind": "warehouse",
+        "city": "Plzeň",
+        "headcount_share": 0.0727
+      },
+      {
+        "code": "SKL-NYR-01",
+        "name": "Sklad Nýřany",
+        "kind": "warehouse",
+        "city": "Nýřany",
+        "headcount_share": 0.0485
+      },
+      {
+        "code": "DIL-PLZ-01",
+        "name": "Dílna a servis vozidel",
+        "kind": "depot",
+        "city": "Plzeň",
+        "headcount_share": 0.0424
+      },
+      {
+        "code": "DIS-PLZ-01",
+        "name": "Dispečink",
+        "kind": "office",
+        "city": "Plzeň",
+        "headcount_share": 0.0545
+      },
+      {
+        "code": "SPR-PLZ-01",
+        "name": "Správa společnosti",
+        "kind": "office",
+        "city": "Plzeň",
+        "headcount_share": 0.0545
+      }
+    ]
+  },
+  {
+    "client_id": "CL-004",
+    "cost_centres": [
+      {
+        "code": "DEL-01",
+        "name": "Delivery – Banky a finance",
+        "kind": "delivery",
+        "city": "Praha",
+        "headcount_share": 0.216667
+      },
+      {
+        "code": "DEL-02",
+        "name": "Delivery – Pojišťovny",
+        "kind": "delivery",
+        "city": "Praha",
+        "headcount_share": 0.15
+      },
+      {
+        "code": "DEL-03",
+        "name": "Delivery – Veřejná správa",
+        "kind": "delivery",
+        "city": "Praha",
+        "headcount_share": 0.133333
+      },
+      {
+        "code": "DEL-04",
+        "name": "Delivery – Retail a e-commerce",
+        "kind": "delivery",
+        "city": "Praha",
+        "headcount_share": 0.116667
+      },
+      {
+        "code": "DEL-05",
+        "name": "Delivery – Telco a utility",
+        "kind": "delivery",
+        "city": "Praha",
+        "headcount_share": 0.083333
+      },
+      {
+        "code": "QA-01",
+        "name": "Testing a QA",
+        "kind": "delivery",
+        "city": "Praha",
+        "headcount_share": 0.075
+      },
+      {
+        "code": "UX-01",
+        "name": "Design studio (UX/UI)",
+        "kind": "delivery",
+        "city": "Praha",
+        "headcount_share": 0.05
+      },
+      {
+        "code": "SAL-01",
+        "name": "Obchod a marketing",
+        "kind": "office",
+        "city": "Praha",
+        "headcount_share": 0.058333
+      },
+      {
+        "code": "HR-01",
+        "name": "HR a nábor",
+        "kind": "office",
+        "city": "Praha",
+        "headcount_share": 0.033334
+      },
+      {
+        "code": "FIN-01",
+        "name": "Finance a administrativa",
+        "kind": "office",
+        "city": "Praha",
+        "headcount_share": 0.033333
+      },
+      {
+        "code": "IT-01",
+        "name": "Interní IT a infrastruktura",
+        "kind": "office",
+        "city": "Praha",
+        "headcount_share": 0.025
+      },
+      {
+        "code": "MGT-01",
+        "name": "Vedení společnosti",
+        "kind": "office",
+        "city": "Praha",
+        "headcount_share": 0.025
+      }
+    ]
+  },
+  {
+    "client_id": "CL-005",
+    "cost_centres": [
+      {
+        "code": "VYR-01",
+        "name": "Příjem mléka a pasterace",
+        "kind": "production",
+        "city": "Litovel",
+        "headcount_share": 0.075
+      },
+      {
+        "code": "VYR-02",
+        "name": "Linka trvanlivého mléka (UHT)",
+        "kind": "production",
+        "city": "Litovel",
+        "headcount_share": 0.125
+      },
+      {
+        "code": "VYR-03",
+        "name": "Výroba jogurtů a zakysaných výrobků",
+        "kind": "production",
+        "city": "Litovel",
+        "headcount_share": 0.15
+      },
+      {
+        "code": "VYR-04",
+        "name": "Sýrárna",
+        "kind": "production",
+        "city": "Litovel",
+        "headcount_share": 0.1
+      },
+      {
+        "code": "VYR-05",
+        "name": "Máslárna a tvarohárna",
+        "kind": "production",
+        "city": "Litovel",
+        "headcount_share": 0.075
+      },
+      {
+        "code": "SKL-01",
+        "name": "Chlazený sklad a expedice",
+        "kind": "warehouse",
+        "city": "Litovel",
+        "headcount_share": 0.1
+      },
+      {
+        "code": "LOG-01",
+        "name": "Svoz mléka",
+        "kind": "field",
+        "city": "Litovel",
+        "headcount_share": 0.05
+      },
+      {
+        "code": "LOG-02",
+        "name": "Distribuce Olomouc",
+        "kind": "depot",
+        "city": "Olomouc",
+        "headcount_share": 0.05
+      },
+      {
+        "code": "UDR-01",
+        "name": "Údržba a energetika",
+        "kind": "production",
+        "city": "Litovel",
+        "headcount_share": 0.075
+      },
+      {
+        "code": "SAN-01",
+        "name": "Sanitace provozu",
+        "kind": "production",
+        "city": "Litovel",
+        "headcount_share": 0.025
+      },
+      {
+        "code": "LAB-01",
+        "name": "Laboratoř a řízení jakosti",
+        "kind": "production",
+        "city": "Litovel",
+        "headcount_share": 0.05
+      },
+      {
+        "code": "NAK-01",
+        "name": "Nákup mléka a zemědělská služba",
+        "kind": "field",
+        "city": "Litovel",
+        "headcount_share": 0.025
+      },
+      {
+        "code": "OBC-01",
+        "name": "Obchod a marketing",
+        "kind": "office",
+        "city": "Olomouc",
+        "headcount_share": 0.05
+      },
+      {
+        "code": "ADM-01",
+        "name": "Vedení a správa",
+        "kind": "office",
+        "city": "Litovel",
+        "headcount_share": 0.05
+      }
+    ]
+  },
+  {
+    "client_id": "CL-006",
+    "cost_centres": [
+      {
+        "code": "HOT-01",
+        "name": "Hotel Stříbrný pramen – hotelový provoz",
+        "kind": "hotel",
+        "city": "Karlovy Vary",
+        "headcount_share": 0.131034
+      },
+      {
+        "code": "HOT-02",
+        "name": "Hotel Sadová – hotelový provoz",
+        "kind": "hotel",
+        "city": "Karlovy Vary",
+        "headcount_share": 0.093103
+      },
+      {
+        "code": "HOT-03",
+        "name": "Hotel Doubí – hotelový provoz",
+        "kind": "hotel",
+        "city": "Karlovy Vary",
+        "headcount_share": 0.065517
+      },
+      {
+        "code": "STR-01",
+        "name": "Kuchyně a restaurace Stříbrný pramen",
+        "kind": "production",
+        "city": "Karlovy Vary",
+        "headcount_share": 0.089655
+      },
+      {
+        "code": "STR-02",
+        "name": "Kuchyně a restaurace Sadová",
+        "kind": "production",
+        "city": "Karlovy Vary",
+        "headcount_share": 0.062069
+      },
+      {
+        "code": "STR-03",
+        "name": "Kuchyně a restaurace Doubí",
+        "kind": "production",
+        "city": "Karlovy Vary",
+        "headcount_share": 0.044828
+      },
+      {
+        "code": "LEC-01",
+        "name": "Balneoprovoz – lázeňské centrum",
+        "kind": "clinic",
+        "city": "Karlovy Vary",
+        "headcount_share": 0.151725
+      },
+      {
+        "code": "LEC-02",
+        "name": "Rehabilitace a fyzioterapie",
+        "kind": "clinic",
+        "city": "Karlovy Vary",
+        "headcount_share": 0.093103
+      },
+      {
+        "code": "LEC-03",
+        "name": "Lékařský úsek a zdravotní sestry",
+        "kind": "clinic",
+        "city": "Karlovy Vary",
+        "headcount_share": 0.058621
+      },
+      {
+        "code": "LEC-04",
+        "name": "Bazén a wellness",
+        "kind": "clinic",
+        "city": "Karlovy Vary",
+        "headcount_share": 0.041379
+      },
+      {
+        "code": "TEC-01",
+        "name": "Technický úsek a údržba",
+        "kind": "field",
+        "city": "Karlovy Vary",
+        "headcount_share": 0.048276
+      },
+      {
+        "code": "PRA-01",
+        "name": "Prádelna",
+        "kind": "production",
+        "city": "Karlovy Vary",
+        "headcount_share": 0.034483
+      },
+      {
+        "code": "ADM-01",
+        "name": "Ředitelství a ekonomický úsek",
+        "kind": "office",
+        "city": "Karlovy Vary",
+        "headcount_share": 0.044828
+      },
+      {
+        "code": "OBC-01",
+        "name": "Obchod, marketing a rezervační oddělení",
+        "kind": "office",
+        "city": "Karlovy Vary",
+        "headcount_share": 0.041379
+      }
+    ]
+  },
+  {
+    "client_id": "CL-007",
+    "cost_centres": [
+      {
+        "code": "RIA-01",
+        "name": "Vedenie spoločnosti",
+        "kind": "office",
+        "city": "Bratislava",
+        "headcount_share": 0.0353
+      },
+      {
+        "code": "EKO-01",
+        "name": "Ekonomika a mzdy",
+        "kind": "office",
+        "city": "Bratislava",
+        "headcount_share": 0.0471
+      },
+      {
+        "code": "ROZ-01",
+        "name": "Rozpočty a cenové ponuky",
+        "kind": "office",
+        "city": "Bratislava",
+        "headcount_share": 0.0706
+      },
+      {
+        "code": "NAK-01",
+        "name": "Nákup a zásobovanie",
+        "kind": "office",
+        "city": "Bratislava",
+        "headcount_share": 0.0353
+      },
+      {
+        "code": "PRI-01",
+        "name": "Príprava a vedenie stavieb",
+        "kind": "field",
+        "city": "Bratislava",
+        "headcount_share": 0.1059
+      },
+      {
+        "code": "BOZ-01",
+        "name": "BOZP a kvalita",
+        "kind": "field",
+        "city": "Bratislava",
+        "headcount_share": 0.0235
+      },
+      {
+        "code": "VYR-01",
+        "name": "Stredisko hrubej stavby",
+        "kind": "field",
+        "city": "Bratislava",
+        "headcount_share": 0.2352
+      },
+      {
+        "code": "VYR-02",
+        "name": "Stredisko dokončovacích prác",
+        "kind": "field",
+        "city": "Bratislava",
+        "headcount_share": 0.1647
+      },
+      {
+        "code": "VYR-03",
+        "name": "Stredisko rekonštrukcií a interiérov",
+        "kind": "field",
+        "city": "Bratislava",
+        "headcount_share": 0.1059
+      },
+      {
+        "code": "VYR-04",
+        "name": "Stredisko zemných prác",
+        "kind": "field",
+        "city": "Bratislava",
+        "headcount_share": 0.0588
+      },
+      {
+        "code": "MEC-01",
+        "name": "Mechanizácia a autodoprava",
+        "kind": "depot",
+        "city": "Bratislava",
+        "headcount_share": 0.0706
+      },
+      {
+        "code": "SKL-01",
+        "name": "Sklad a stavebný dvor Senec",
+        "kind": "warehouse",
+        "city": "Senec",
+        "headcount_share": 0.0471
+      }
+    ]
+  },
+  {
+    "client_id": "CL-008",
+    "cost_centres": [
+      {
+        "code": "AMB-BRNO-01",
+        "name": "Ambulance Líšeň",
+        "kind": "clinic",
+        "city": "Brno",
+        "headcount_share": 0.38
+      },
+      {
+        "code": "AMB-BRNO-02",
+        "name": "Ambulance u hlavního nádraží",
+        "kind": "clinic",
+        "city": "Brno",
+        "headcount_share": 0.41
+      },
+      {
+        "code": "DIA-BRNO-03",
+        "name": "Komplement - RTG, UZ a odběry",
+        "kind": "clinic",
+        "city": "Brno",
+        "headcount_share": 0.11
+      },
+      {
+        "code": "SPR-BRNO-04",
+        "name": "Vedení a správa (účtárna, pojišťovny, IT)",
+        "kind": "office",
+        "city": "Brno",
+        "headcount_share": 0.1
+      }
+    ]
+  },
+  {
+    "client_id": "CL-009",
+    "cost_centres": [
+      {
+        "code": "PR-01",
+        "name": "Predajňa Košice - Staré Mesto",
+        "kind": "store",
+        "city": "Košice",
+        "headcount_share": 0.1207
+      },
+      {
+        "code": "PR-02",
+        "name": "Predajňa Košice - Terasa",
+        "kind": "store",
+        "city": "Košice",
+        "headcount_share": 0.1034
+      },
+      {
+        "code": "PR-03",
+        "name": "Predajňa Košice - Nad jazerom",
+        "kind": "store",
+        "city": "Košice",
+        "headcount_share": 0.1034
+      },
+      {
+        "code": "PR-04",
+        "name": "Predajňa Košice - KVP",
+        "kind": "store",
+        "city": "Košice",
+        "headcount_share": 0.0862
+      },
+      {
+        "code": "PR-05",
+        "name": "Predajňa Košice - Furča",
+        "kind": "store",
+        "city": "Košice",
+        "headcount_share": 0.0862
+      },
+      {
+        "code": "PR-06",
+        "name": "Predajňa Košice - Ťahanovce",
+        "kind": "store",
+        "city": "Košice",
+        "headcount_share": 0.0862
+      },
+      {
+        "code": "PR-07",
+        "name": "Predajňa Košice - Juh",
+        "kind": "store",
+        "city": "Košice",
+        "headcount_share": 0.0862
+      },
+      {
+        "code": "PR-08",
+        "name": "Predajňa Košice - Krásna",
+        "kind": "store",
+        "city": "Košice",
+        "headcount_share": 0.069
+      },
+      {
+        "code": "PR-09",
+        "name": "Predajňa Moldava nad Bodvou",
+        "kind": "store",
+        "city": "Moldava nad Bodvou",
+        "headcount_share": 0.069
+      },
+      {
+        "code": "PR-10",
+        "name": "Predajňa Valaliky",
+        "kind": "store",
+        "city": "Valaliky",
+        "headcount_share": 0.069
+      },
+      {
+        "code": "PR-11",
+        "name": "Predajňa Rozhanovce",
+        "kind": "store",
+        "city": "Rozhanovce",
+        "headcount_share": 0.0517
+      },
+      {
+        "code": "SPR-01",
+        "name": "Správa a účtáreň",
+        "kind": "office",
+        "city": "Košice",
+        "headcount_share": 0.069
+      }
+    ]
+  },
+  {
+    "client_id": "CL-010",
+    "cost_centres": [
+      {
+        "code": "UCT-01",
+        "name": "Účetnictví",
+        "kind": "office",
+        "city": "Praha",
+        "headcount_share": 0.3529
+      },
+      {
+        "code": "MZD-01",
+        "name": "Mzdová účtárna a personalistika",
+        "kind": "office",
+        "city": "Praha",
+        "headcount_share": 0.1765
+      },
+      {
+        "code": "DAN-01",
+        "name": "Daňové poradenství",
+        "kind": "office",
+        "city": "Praha",
+        "headcount_share": 0.1765
+      },
+      {
+        "code": "AUD-01",
+        "name": "Audit a ověřovací zakázky",
+        "kind": "office",
+        "city": "Praha",
+        "headcount_share": 0.0882
+      },
+      {
+        "code": "ADM-01",
+        "name": "Kancelář a administrativa",
+        "kind": "office",
+        "city": "Praha",
+        "headcount_share": 0.1177
+      },
+      {
+        "code": "VED-01",
+        "name": "Partneři a vedení firmy",
+        "kind": "office",
+        "city": "Praha",
+        "headcount_share": 0.0882
+      }
+    ]
+  },
+  {
+    "client_id": "CL-011",
+    "cost_centres": [
+      {
+        "code": "RV-01",
+        "name": "Rostlinná výroba – středisko Ševětín",
+        "kind": "field",
+        "city": "Ševětín",
+        "headcount_share": 0.19355
+      },
+      {
+        "code": "RV-02",
+        "name": "Rostlinná výroba – středisko Dynín",
+        "kind": "field",
+        "city": "Dynín",
+        "headcount_share": 0.16129
+      },
+      {
+        "code": "RV-03",
+        "name": "Rostlinná výroba – středisko Neplachov",
+        "kind": "field",
+        "city": "Neplachov",
+        "headcount_share": 0.129032
+      },
+      {
+        "code": "POS-01",
+        "name": "Posklizňová linka – sušárna a silo Ševětín",
+        "kind": "production",
+        "city": "Ševětín",
+        "headcount_share": 0.129032
+      },
+      {
+        "code": "MECH-01",
+        "name": "Mechanizační dílna a servis",
+        "kind": "depot",
+        "city": "Ševětín",
+        "headcount_share": 0.145161
+      },
+      {
+        "code": "DOP-01",
+        "name": "Autodoprava a přeprava komodit",
+        "kind": "depot",
+        "city": "Ševětín",
+        "headcount_share": 0.096774
+      },
+      {
+        "code": "AGR-01",
+        "name": "Agronomický úsek",
+        "kind": "field",
+        "city": "Ševětín",
+        "headcount_share": 0.064516
+      },
+      {
+        "code": "SPR-01",
+        "name": "Správa a ekonomika",
+        "kind": "office",
+        "city": "Ševětín",
+        "headcount_share": 0.080645
+      }
+    ]
+  },
+  {
+    "client_id": "CL-012",
+    "cost_centres": [
+      {
+        "code": "EXP-LBC-01",
+        "name": "Expedice a balení Liberec",
+        "kind": "warehouse",
+        "city": "Liberec",
+        "headcount_share": 0.3214
+      },
+      {
+        "code": "SKL-LBC-01",
+        "name": "Sklad Liberec – příjem a naskladnění",
+        "kind": "warehouse",
+        "city": "Liberec",
+        "headcount_share": 0.1429
+      },
+      {
+        "code": "ZAK-LBC-01",
+        "name": "Zákaznický servis a reklamace",
+        "kind": "office",
+        "city": "Liberec",
+        "headcount_share": 0.1786
+      },
+      {
+        "code": "ECM-LBC-01",
+        "name": "E-shop a marketing",
+        "kind": "office",
+        "city": "Liberec",
+        "headcount_share": 0.1429
+      },
+      {
+        "code": "NAK-LBC-01",
+        "name": "Nákup a produktové portfolio",
+        "kind": "office",
+        "city": "Liberec",
+        "headcount_share": 0.1071
+      },
+      {
+        "code": "VED-LBC-01",
+        "name": "Vedení a administrativa",
+        "kind": "office",
+        "city": "Liberec",
+        "headcount_share": 0.1071
+      }
+    ]
+  }
+]

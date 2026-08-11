@@ -1,0 +1,12 @@
+[project]
+name = "agent-bricks-ws-notebooks"
+version = "1.0.0"
+description = "Dependencies for the workshop notebooks."
+requires-python = ">=3.11"
+# What the notebooks import. uv.lock beside this file pins the whole tree; the
+# deploy resolves the exact versions out of it and installs those, so a notebook
+# run months from now gets what it was written against.
+dependencies = [
+    "databricks-sdk",
+    "requests",
+]

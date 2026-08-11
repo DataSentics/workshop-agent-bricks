@@ -1,0 +1,13 @@
+command: ["uv", "run", "uvicorn", "app.main:create_application", "--factory", "--host", "0.0.0.0", "--port", "8000"]
+env:
+  - name: UC_CATALOG
+    value: "vencam_sandbox"
+  - name: UC_OPS_SCHEMA
+    value: "agent_bricks_ws_saldo_ops"
+  - name: UC_PLATFORM_SCHEMA
+    value: "agent_bricks_ws_saldo_platform"
+  - name: LLM_ENDPOINT
+    value: "databricks-claude-sonnet-4-5"
+  # The warehouse every case read and write goes through.
+  - name: DATABRICKS_WAREHOUSE_ID
+    valueFrom: "sql_warehouse"

@@ -1,0 +1,219 @@
+{
+  "generated_from": {
+    "run": "PR-202607-0008",
+    "case": "CAS-40318",
+    "change": "CHG-0488",
+    "note": "Dates are read from the committed tables. Do not edit them here."
+  },
+  "inbox": [
+    {
+      "from": "marketa.sedlackova@alpineretail.cz",
+      "from_name": "Markéta Sedláčková",
+      "subject": "47 of our people have not been paid",
+      "date": "2026-08-06T12:18:00",
+      "read": false,
+      "has_attachments": false,
+      "body": "Good afternoon,\n\nI have 47 people in my office who were not paid on Friday, and I have no answer for them. Our July file went to you the same way it goes every month. Nobody here changed anything.\n\nLenka tells me your system rejected them. I need to know why it rejected our people and not everyone else's, when we will be paying them, and whether this happens again in August.\n\nI would also like to understand what compensation we are entitled to. We have store managers dealing with very upset staff at the end of the month.\n\nPlease call me today.\n\nMarkéta Sedláčková\nFinance Director, Alpine Retail a.s."
+    },
+    {
+      "from": "lenka.maresova@alpineretail.cz",
+      "from_name": "Lenka Marešová",
+      "subject": "July run - rejected rows (PR-202607-0008)",
+      "date": "2026-08-04T09:47:00",
+      "read": true,
+      "has_attachments": true,
+      "body": "Hello,\n\nI submitted the 2026-07 payroll yesterday morning as usual and the run came back partially completed. 47 rows rejected, the rest went through.\n\nI have looked at the rejection report and I do not understand it. It says the bank account is not valid, but these are people who have been paid every month for years. I have not touched their records.\n\nReport attached. Can somebody look before Friday's payment date?\n\nThanks,\nLenka Marešová\nPayroll Manager, Alpine Retail"
+    },
+    {
+      "from": "no-reply@saldo.cz",
+      "from_name": "Saldo Platform",
+      "subject": "[Saldo] Run PR-202607-0008 completed with rejections",
+      "date": "2026-08-04T06:14:00",
+      "read": true,
+      "has_attachments": false,
+      "body": "Customer:  Alpine Retail a.s. (CL-001)\nRun:       PR-202607-0008\nPeriod:    2026-07\nChannel:   sftp\nSubmitted: 2026-08-04 06:11:00\n\nRows submitted: 1240\nAccepted:       1193\nRejected:       47\nStatus:         PARTIALLY_COMPLETED\n\nThe accepted rows have continued to calculation. Rejected rows are listed in the run detail screen.\n\nThis is an automated message."
+    },
+    {
+      "from": "no-reply@saldo.cz",
+      "from_name": "Saldo Release Notes",
+      "subject": "Saldo 2026.8 went out on Saturday",
+      "date": "2026-08-01T07:30:00",
+      "read": true,
+      "has_attachments": false,
+      "body": "Release 2026.8 went out in the Saturday maintenance window and everything came back clean.\n\nThe change log has the full list as usual. Anything customer-facing is flagged there.\n\nThis is an automated message."
+    },
+    {
+      "from": "tomas.richter@saldo.cz",
+      "from_name": "Tomáš Richter",
+      "subject": "Alpine - they are asking about the contract",
+      "date": "2026-08-06T16:40:00",
+      "read": false,
+      "has_attachments": false,
+      "body": "Markéta called me straight after she mailed you. She is asking for a service credit and she used the word terminate, which she has not done before.\n\nBefore I go back to her I need to know where we actually stand. Was this us or was it their data? And are they owed anything under the SLA, or am I offering goodwill?\n\nThey are 1,240 employees on Professional, Brno. Renewal is not close, but I do not want this sitting there.\n\nTomáš"
+    },
+    {
+      "from": "ondrej.bures@saldo.cz",
+      "from_name": "Ondřej Bureš",
+      "subject": "Re: CAS-40318 - what I have so far",
+      "date": "2026-08-06T17:55:00",
+      "read": false,
+      "has_attachments": false,
+      "body": "I have been through the run.\n\nEvery rejected row carries the same error code, and the run before this one was clean. Same customer, same channel, nothing different on their side that I can see.\n\nI do not want to go back to Markéta with a guess. Can somebody check what went out recently and whether anything else has come in like this?\n\nOndřej"
+    },
+    {
+      "from": "ondrej.bures@saldo.cz",
+      "from_name": "Ondřej Bureš",
+      "subject": "FW: 47 of our people have not been paid",
+      "date": "2026-08-06T13:05:00",
+      "read": false,
+      "has_attachments": false,
+      "body": "Forwarding this one - it is CAS-40318, raised this lunchtime.\n\nI have the run open and I am going through the rejected rows, but she is asking about compensation as well and that is not mine to answer. Can you pick up that side of it?\n\nOndřej\n\n-----Original message-----\nFrom: Markéta Sedláčková <marketa.sedlackova@alpineretail.cz>\nSent: 06 August 2026 12:18\nTo: support@saldo.cz\nSubject: 47 of our people have not been paid\n\nGood afternoon,\n\nI have 47 people in my office who were not paid on Friday, and I have no answer for them. Our July file went to you the same way it goes every month. Nobody here changed anything.\n\nLenka tells me your system rejected them. I need to know why it rejected our people and not everyone else's, when we will be paying them, and whether this happens again in August.\n\nI would also like to understand what compensation we are entitled to.\n\nMarkéta Sedláčková\nFinance Director, Alpine Retail a.s."
+    },
+    {
+      "from": "jakub.horak@alpineretail.cz",
+      "from_name": "Jakub Horák",
+      "subject": "Re: employee master - what format do you need?",
+      "date": "2026-08-07T18:20:00",
+      "read": false,
+      "has_attachments": false,
+      "body": "Markéta asked me to sort this out from our side.\n\nI can pull the affected people out of our HR system and re-upload them, but I need to know exactly what you want in the bank account column and whether I upload only those people or the whole master again.\n\nAlso - our SFTP job runs at 06:00. If we re-upload today does it get picked up with the August run or do you need to reprocess July separately?\n\nJakub Horák\nIT Manager, Alpine Retail"
+    },
+    {
+      "from": "ivana.kramarova@saldo.cz",
+      "from_name": "Ivana Kramářová",
+      "subject": "Cost centre export for Kroupa - who owns this one?",
+      "date": "2026-08-05T11:05:00",
+      "read": true,
+      "has_attachments": false,
+      "body": "Kroupa Obrábění want their year-to-date labour cost split by production section. It is sitting unassigned and I am on the Naldex migration all week.\n\nCan somebody pick it up?\n\nIvana"
+    },
+    {
+      "from": "no-reply@saldo.cz",
+      "from_name": "Saldo Platform",
+      "subject": "[Saldo] Scheduled maintenance this Saturday, 02:00-04:00 CET",
+      "date": "2026-08-04T08:00:00",
+      "read": true,
+      "has_attachments": false,
+      "body": "The web application and the API will be unavailable between 02:00 and 04:00 CET on Saturday for planned database maintenance.\n\nSFTP submissions received during the window are queued and processed afterwards. Scheduled maintenance is excluded from the availability measurement.\n\nThis is an automated message."
+    }
+  ],
+  "sent": [
+    {
+      "to": "lenka.maresova@alpineretail.cz",
+      "subject": "Re: July run - rejected rows (PR-202607-0008)",
+      "date": "2026-08-04T11:20:00",
+      "read": true,
+      "has_attachments": false,
+      "body": "Hello Lenka,\n\nThanks for the report. I have raised this as CAS-40318 and I am looking at the run now.\n\nOne thing that would help straight away: can you confirm whether your submitted file contains a bank account column at all? I want to rule the file in or out before I go further.\n\nI will come back to you today.\n\nKind regards"
+    },
+    {
+      "to": "tomas.richter@saldo.cz",
+      "subject": "Re: Alpine - they are asking about the contract",
+      "date": "2026-08-06T17:02:00",
+      "read": true,
+      "has_attachments": false,
+      "body": "Give me until tomorrow morning before you call her back. I do not want to say anything about credits until I know whether we were actually down, which I do not think we were.\n\nTheir run failed on validation. That is not the same thing, and the two get confused every time."
+    }
+  ],
+  "drafts": [
+    {
+      "to": "filip.dolezal@saldo.cz",
+      "subject": "Handover notes - week of the 2026.8 release",
+      "date": "2026-08-06T19:30:00",
+      "read": true,
+      "has_attachments": false,
+      "body": "Filip,\n\nThings to keep an eye on while I am out:\n\n- Alpine Retail, the big one. Case is open.\n- Fenmark still have not moved their period column, so expect a repeat.\n- "
+    }
+  ],
+  "calendar": [
+    {
+      "title": "Alpine Retail - July payroll, call with Markéta",
+      "start": "2026-08-07T09:00:00",
+      "end": "2026-08-07T09:45:00",
+      "location": "Teams",
+      "is_recurring": false,
+      "attendees": [
+        "marketa.sedlackova@alpineretail.cz",
+        "tomas.richter@saldo.cz",
+        "ondrej.bures@saldo.cz"
+      ],
+      "description": "Markéta wants an answer on the 47 unpaid employees, when they get paid, and whether they are owed a service credit. Have the run detail open."
+    },
+    {
+      "title": "CAS-40318 - review before we reply",
+      "start": "2026-08-07T08:15:00",
+      "end": "2026-08-07T08:45:00",
+      "location": "Meeting room 2",
+      "is_recurring": false,
+      "attendees": [
+        "ondrej.bures@saldo.cz",
+        "tomas.richter@saldo.cz"
+      ],
+      "description": "Agree what we tell them about cause and about compensation."
+    },
+    {
+      "title": "Support standup",
+      "start": "2026-08-06T09:00:00",
+      "end": "2026-08-06T09:15:00",
+      "location": "Teams",
+      "is_recurring": true,
+      "attendees": [
+        "ondrej.bures@saldo.cz",
+        "tereza.markova@saldo.cz",
+        "filip.dolezal@saldo.cz",
+        "ivana.kramarova@saldo.cz"
+      ],
+      "description": "Queue, escalations, anything blocked."
+    },
+    {
+      "title": "Release 2026.9 - go / no go",
+      "start": "2026-08-22T14:00:00",
+      "end": "2026-08-22T15:00:00",
+      "location": "Teams",
+      "is_recurring": false,
+      "attendees": [
+        "ondrej.bures@saldo.cz",
+        "tomas.richter@saldo.cz",
+        "tereza.markova@saldo.cz"
+      ],
+      "description": "Nothing in this release needs customer action. Confirm that."
+    },
+    {
+      "title": "Alpine Retail - quarterly service review",
+      "start": "2026-08-15T10:00:00",
+      "end": "2026-08-15T11:00:00",
+      "location": "Brno, customer site",
+      "is_recurring": false,
+      "attendees": [
+        "marketa.sedlackova@alpineretail.cz",
+        "jakub.horak@alpineretail.cz",
+        "tomas.richter@saldo.cz"
+      ],
+      "description": "Standing quarterly. July will dominate it this time."
+    },
+    {
+      "title": "Naldex migration - working session",
+      "start": "2026-08-08T13:00:00",
+      "end": "2026-08-08T14:30:00",
+      "location": "Teams",
+      "is_recurring": false,
+      "attendees": [
+        "ivana.kramarova@saldo.cz",
+        "filip.dolezal@saldo.cz"
+      ],
+      "description": "Employee master mapping."
+    },
+    {
+      "title": "Payroll platform - weekly",
+      "start": "2026-08-09T11:00:00",
+      "end": "2026-08-09T12:00:00",
+      "location": "Teams",
+      "is_recurring": true,
+      "attendees": [
+        "ondrej.bures@saldo.cz",
+        "tereza.markova@saldo.cz"
+      ],
+      "description": "Validation changes, rejection volumes, anything customers are hitting."
+    }
+  ]
+}

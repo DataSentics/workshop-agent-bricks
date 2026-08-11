@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Outlook</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230f6cbd'/><rect x='6' y='9' width='20' height='14' rx='2' fill='none' stroke='white' stroke-width='2.2'/><path d='M6.8 10.5L16 17l9.2-6.5' fill='none' stroke='white' stroke-width='2.2'/></svg>">
+<style>
+:root{
+  --accent:#0f6cbd;
+  --accent-hover:#115ea3;
+  --bg:#faf9f8;
+  --surface:#fff;
+  --line:#edebe9;
+  --line-strong:#e1dfdd;
+  --text:#242424;
+  --text-2:#616161;
+  --text-3:#8a8886;
+  --hover:#f5f4f2;
+  --sel:#e8f1fb;
+  --sel-strong:#cfe4fa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',sans-serif;
+  background:var(--bg);color:var(--text);font-size:14px;overflow:hidden;
+}
+button{font-family:inherit;color:inherit}
+
+/* ---------- top bar ---------- */
+.topbar{
+  height:48px;background:var(--accent);color:#fff;display:flex;align-items:center;
+  gap:8px;padding:0 12px;flex-shrink:0;
+}
+.waffle{
+  width:40px;height:40px;border:none;background:none;color:#fff;cursor:pointer;
+  border-radius:4px;display:flex;align-items:center;justify-content:center;
+}
+.waffle:hover{background:rgba(255,255,255,.15)}
+.brand{font-size:16px;font-weight:600;margin-right:8px;white-space:nowrap}
+.search{
+  flex:1;max-width:720px;height:32px;background:rgba(255,255,255,.92);border-radius:4px;
+  display:flex;align-items:center;gap:8px;padding:0 12px;
+}
+.search svg{flex-shrink:0;color:#605e5c}
+.search input{
+  flex:1;border:none;background:none;outline:none;font-size:14px;font-family:inherit;color:#242424;
+}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.avatar{
+  width:32px;height:32px;border-radius:50%;background:#fff;color:var(--accent);
+  display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;flex-shrink:0;
+}
+.who{font-size:13px;opacity:.95;max-width:230px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.reset-btn{
+  display:flex;align-items:center;gap:6px;flex-shrink:0;cursor:pointer;
+  background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.35);
+  border-radius:4px;padding:5px 10px;font:inherit;font-size:12px;
+}
+.reset-btn:hover:not(:disabled){background:rgba(255,255,255,.25)}
+.reset-btn:disabled{opacity:.5;cursor:default}
+
+/* ---------- shell ---------- */
+.shell{display:flex;height:calc(100% - 48px)}
+.rail{
+  width:56px;background:var(--bg);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;align-items:center;padding-top:8px;gap:4px;flex-shrink:0;
+}
+.rail button{
+  width:44px;height:44px;border:none;background:none;border-radius:4px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  color:var(--text-2);position:relative;
+}
+.rail button:hover{background:var(--hover)}
+.rail button.active{color:var(--accent)}
+.rail button.active::before{
+  content:'';position:absolute;left:-6px;top:9px;bottom:9px;width:3px;
+  background:var(--accent);border-radius:2px;
+}
+.rail .lbl{font-size:9px;font-weight:600}
+
+/* min-height:0 all the way down: without it these flex/grid items size to
+   their content and the inner scroll containers never overflow. */
+.view{flex:1;min-width:0;min-height:0;display:none}
+.view.active{display:flex}
+
+/* ---------- generic panes ---------- */
+.pane{background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.new-btn{
+  display:flex;align-items:center;gap:8px;margin:12px;padding:8px 14px;background:var(--surface);
+  border:1px solid var(--line-strong);border-radius:4px;font-size:14px;font-weight:600;
+  color:var(--accent);cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.06);
+}
+.new-btn:hover{background:var(--sel)}
+
+/* ---------- mail ---------- */
+.mail-layout{display:grid;grid-template-columns:220px 380px 1fr;flex:1;min-width:0;min-height:0}
+.folders{padding:4px 8px;overflow:auto}
+.folders .grp{font-size:11px;font-weight:600;color:var(--text-3);padding:12px 12px 4px;text-transform:none}
+.folder{
+  display:flex;align-items:center;gap:10px;padding:7px 12px;border-radius:4px;cursor:pointer;
+  font-size:14px;color:var(--text);
+}
+.folder:hover{background:var(--hover)}
+.folder.active{background:var(--sel-strong);font-weight:600}
+.folder .count{margin-left:auto;font-size:12px;color:var(--accent);font-weight:600}
+
+.list-pane{min-width:0}
+.list-head{
+  display:flex;align-items:center;justify-content:space-between;padding:12px 16px 10px;
+  border-bottom:1px solid var(--line);flex-shrink:0;
+}
+.list-head h2{font-size:16px;font-weight:600}
+.list-head .sub{font-size:12px;color:var(--text-3)}
+.msg-list{overflow:auto;flex:1}
+.msg{
+  display:flex;gap:10px;padding:10px 12px 10px 10px;border-bottom:1px solid var(--line);
+  cursor:pointer;border-left:3px solid transparent;
+}
+.msg:hover{background:var(--hover)}
+.msg.active{background:var(--sel);border-left-color:var(--accent)}
+.msg.unread{background:#fbfcfe}
+.msg.unread .msg-from,.msg.unread .msg-subj{font-weight:700}
+.msg.unread .msg-subj{color:var(--accent)}
+.pic{
+  width:32px;height:32px;border-radius:50%;flex-shrink:0;color:#fff;font-size:12px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;margin-top:2px;
+}
+.msg-main{flex:1;min-width:0}
+.msg-top{display:flex;align-items:baseline;gap:8px}
+.msg-from{font-size:14px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.msg-time{font-size:12px;color:var(--text-3);white-space:nowrap;flex-shrink:0}
+.msg-subj{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:1px}
+.msg-prev{font-size:12px;color:var(--text-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:1px}
+/* Outlook marks an unsent message with a red "Draft" ahead of the preview text. */
+.draft-tag{color:#a4262c;font-weight:600;margin-right:5px}
+.msg-badges{display:flex;align-items:center;gap:6px;margin-top:3px;color:var(--text-3)}
+.dot-unread{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;align-self:center}
+
+.read-pane{background:var(--surface);overflow:auto;flex:1;min-width:0;min-height:0;border-right:none}
+.read-inner{padding:24px 32px;max-width:900px}
+.read-inner h1{font-size:21px;font-weight:600;margin-bottom:18px;line-height:1.3}
+.read-from{display:flex;gap:12px;align-items:flex-start;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.read-from .who-line{flex:1;min-width:0}
+.read-from .nm{font-weight:600;font-size:14px}
+.read-from .to{font-size:12px;color:var(--text-2);margin-top:2px;word-break:break-word}
+.read-from .when{font-size:12px;color:var(--text-3);white-space:nowrap}
+.read-body{white-space:pre-wrap;line-height:1.7;font-size:14px;padding-top:20px;color:#323130}
+.read-actions{display:flex;gap:8px;padding-top:20px;margin-top:20px;border-top:1px solid var(--line)}
+.attach-chip{
+  display:inline-flex;align-items:center;gap:6px;margin-top:14px;padding:6px 12px;
+  border:1px solid var(--line-strong);border-radius:4px;font-size:12px;color:var(--text-2);background:var(--bg);
+}
+
+/* ---------- calendar ---------- */
+.cal-layout{display:grid;grid-template-columns:260px 1fr;flex:1;min-width:0;min-height:0}
+.cal-side{overflow:auto}
+.mini{padding:0 12px 12px}
+.mini-head{display:flex;align-items:center;gap:4px;padding:6px 4px 8px}
+.mini-head .t{flex:1;font-size:13px;font-weight:600}
+.mini-nav{
+  width:24px;height:24px;border:none;background:none;cursor:pointer;border-radius:4px;
+  color:var(--text-2);display:flex;align-items:center;justify-content:center;
+}
+.mini-nav:hover{background:var(--hover)}
+.mini-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;text-align:center}
+.mini-dow{font-size:10px;color:var(--text-3);padding:4px 0;font-weight:600}
+.mini-day{
+  font-size:11px;padding:4px 0;border-radius:50%;cursor:pointer;line-height:18px;height:26px;
+}
+.mini-day:hover{background:var(--hover)}
+.mini-day.out{color:#c8c6c4}
+.mini-day.today{background:var(--accent);color:#fff;font-weight:700}
+.mini-day.sel:not(.today){background:var(--sel-strong);font-weight:600}
+.mini-day.has::after{
+  content:'';display:block;width:4px;height:4px;border-radius:50%;background:var(--accent);
+  margin:-3px auto 0;
+}
+.mini-day.today.has::after{background:#fff}
+.my-cals{padding:8px 16px 20px}
+.my-cals .grp{font-size:11px;font-weight:600;color:var(--text-3);padding:8px 0 6px}
+.cal-item{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:13px}
+.swatch{width:14px;height:14px;border-radius:3px;flex-shrink:0}
+
+.cal-main{display:flex;flex-direction:column;min-width:0;min-height:0;background:var(--surface)}
+.cal-toolbar{
+  display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--line);
+  flex-shrink:0;flex-wrap:wrap;
+}
+.tb-btn{
+  border:1px solid var(--line-strong);background:var(--surface);border-radius:4px;
+  padding:5px 12px;font-size:13px;cursor:pointer;
+}
+.tb-btn:hover{background:var(--hover)}
+.tb-icon{
+  width:28px;height:28px;border:none;background:none;border-radius:4px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;color:var(--text-2);
+}
+.tb-icon:hover{background:var(--hover)}
+.cal-title{font-size:17px;font-weight:600;margin:0 6px;white-space:nowrap}
+.view-switch{margin-left:auto;display:flex;border:1px solid var(--line-strong);border-radius:4px;overflow:hidden}
+.view-switch button{
+  border:none;background:var(--surface);padding:6px 12px;font-size:13px;cursor:pointer;
+  border-right:1px solid var(--line-strong);
+}
+.view-switch button:last-child{border-right:none}
+.view-switch button:hover{background:var(--hover)}
+.view-switch button.active{background:var(--sel-strong);font-weight:600;color:var(--accent)}
+
+.grid-head{display:grid;border-bottom:1px solid var(--line-strong);flex-shrink:0;background:var(--surface)}
+.gutter-sp{border-right:1px solid var(--line)}
+.dayhead{
+  text-align:center;padding:8px 4px;border-right:1px solid var(--line);
+}
+.dayhead .dow{font-size:11px;color:var(--text-2);text-transform:uppercase;letter-spacing:.4px}
+.dayhead .dnum{
+  font-size:20px;font-weight:400;margin-top:2px;width:34px;height:34px;line-height:34px;
+  border-radius:50%;display:inline-block;
+}
+.dayhead.today .dow{color:var(--accent);font-weight:700}
+.dayhead.today .dnum{background:var(--accent);color:#fff;font-weight:600}
+
+.grid-scroll{overflow:auto;flex:1;min-height:0;position:relative}
+.grid-body{display:grid;position:relative}
+.hours{border-right:1px solid var(--line)}
+.hour-lbl{
+  font-size:11px;color:var(--text-3);text-align:right;padding-right:8px;position:relative;top:-7px;
+}
+.daycol{border-right:1px solid var(--line);position:relative}
+.daycol.weekend{background:#fcfcfb}
+.ev{
+  position:absolute;border-radius:4px;padding:3px 6px;overflow:hidden;cursor:pointer;
+  border-left:3px solid;font-size:12px;line-height:1.3;
+}
+.ev:hover{filter:brightness(.96);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.ev .et{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ev .eh{opacity:.85;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nowline{position:absolute;left:0;right:0;height:0;border-top:2px solid #d13438;z-index:5;pointer-events:none}
+.nowline::before{
+  content:'';position:absolute;left:-5px;top:-5px;width:10px;height:10px;border-radius:50%;background:#d13438;
+}
+
+/* month */
+.month-grid{display:grid;grid-template-columns:repeat(7,1fr);flex:1;min-height:0;overflow:auto}
+.mcell{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:4px;min-height:104px;overflow:hidden}
+.mcell.out{background:#fcfcfb}
+.mcell .mnum{font-size:12px;color:var(--text-2);padding:2px 4px;display:inline-block;border-radius:50%;min-width:22px;text-align:center}
+.mcell.out .mnum{color:#b3b0ad}
+.mcell.today .mnum{background:var(--accent);color:#fff;font-weight:700}
+.mchip{
+  display:flex;align-items:center;gap:5px;padding:2px 4px;border-radius:3px;margin-top:2px;
+  font-size:11px;cursor:pointer;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+}
+.mchip:hover{filter:brightness(.95)}
+.mchip .cdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.mchip .ct{overflow:hidden;text-overflow:ellipsis}
+.mmore{font-size:11px;color:var(--text-2);padding:1px 5px;cursor:pointer}
+.mmore:hover{text-decoration:underline}
+
+/* ---------- modal ---------- */
+.backdrop{
+  position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;z-index:100;
+  align-items:center;justify-content:center;padding:20px;
+}
+.backdrop.show{display:flex}
+.modal{
+  background:var(--surface);border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,.28);
+  width:100%;max-width:540px;max-height:90vh;overflow:auto;
+}
+.modal-head{
+  display:flex;align-items:center;gap:10px;padding:16px 20px;border-bottom:1px solid var(--line);
+}
+.modal-head h3{font-size:16px;font-weight:600;flex:1}
+.x-btn{width:30px;height:30px;border:none;background:none;cursor:pointer;border-radius:4px;font-size:18px;color:var(--text-2)}
+.x-btn:hover{background:var(--hover)}
+.modal-body{padding:18px 20px}
+.modal-foot{display:flex;gap:8px;padding:14px 20px;border-top:1px solid var(--line)}
+
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:5px}
+.field input,.field textarea,.field select{
+  width:100%;padding:8px 10px;border:1px solid var(--line-strong);border-radius:4px;
+  font-size:14px;font-family:inherit;background:var(--surface);color:var(--text);
+}
+.field input:focus,.field textarea:focus,.field select:focus{
+  outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(15,108,189,.18);
+}
+.field textarea{min-height:120px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn{
+  padding:8px 20px;border-radius:4px;font-size:14px;font-weight:600;cursor:pointer;border:1px solid transparent;
+}
+.btn-p{background:var(--accent);color:#fff}
+.btn-p:hover{background:var(--accent-hover)}
+.btn-s{background:var(--surface);border-color:var(--line-strong)}
+.btn-s:hover{background:var(--hover)}
+.btn-d{background:var(--surface);border-color:var(--line-strong);color:#a4262c;margin-left:auto}
+.btn-d:hover{background:#fbeaeb}
+
+.det-row{display:flex;gap:10px;padding:9px 0;font-size:13px;align-items:flex-start}
+.det-row .ic{color:var(--text-3);flex-shrink:0;margin-top:1px}
+.det-row .vl{flex:1;min-width:0;word-break:break-word}
+.det-row .k{color:var(--text-3);font-size:12px;margin-bottom:2px}
+
+/* ---------- misc ---------- */
+.empty{text-align:center;color:var(--text-3);padding:60px 20px;font-size:14px}
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#323130;color:#fff;
+  padding:11px 22px;border-radius:4px;font-size:14px;display:none;z-index:200;box-shadow:0 4px 16px rgba(0,0,0,.3);
+}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#c8c6c4;border-radius:5px;border:2px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:#a19f9d}
+::-webkit-scrollbar-track{background:transparent}
+
+@media(max-width:1200px){
+  .mail-layout{grid-template-columns:200px 320px 1fr}
+  .cal-layout{grid-template-columns:220px 1fr}
+}
+@media(max-width:980px){
+  .mail-layout{grid-template-columns:180px 1fr}
+  .read-pane{display:none}
+  .read-pane.mobile-open{display:block;position:fixed;inset:48px 0 0 56px;z-index:50}
+  .cal-layout{grid-template-columns:1fr}
+  .cal-side{display:none}
+  .who{display:none}
+}
+@media(max-width:640px){
+  .mail-layout{grid-template-columns:1fr}
+  .folder-pane{display:none}
+  .brand{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <button class="waffle" title="App launcher" aria-label="App launcher">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor"><circle cx="3" cy="3" r="1.6"/><circle cx="9" cy="3" r="1.6"/><circle cx="15" cy="3" r="1.6"/><circle cx="3" cy="9" r="1.6"/><circle cx="9" cy="9" r="1.6"/><circle cx="15" cy="9" r="1.6"/><circle cx="3" cy="15" r="1.6"/><circle cx="9" cy="15" r="1.6"/><circle cx="15" cy="15" r="1.6"/></svg>
+  </button>
+  <span class="brand">Outlook</span>
+  <div class="search">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="Search mail">
+  </div>
+  <div class="topbar-right">
+    <button class="reset-btn" id="reset-demo" type="button"
+            title="Undo everything you have changed and start the demo again. Only affects you.">
+      <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M8 3V1L5 4l3 3V5a3 3 0 1 1-3 3H3.5A4.5 4.5 0 1 0 8 3z"
+              fill="currentColor"/>
+      </svg>
+      Reset demo
+    </button>
+    <span class="who" id="who">…</span>
+    <div class="avatar" id="me-pic">?</div>
+  </div>
+</div>
+
+<div class="shell">
+  <nav class="rail">
+    <button class="active" data-v="mail" title="Mail">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4.5" width="20" height="15" rx="2"/><path d="M2.5 6.5L12 13l9.5-6.5"/></svg>
+      <span class="lbl">Mail</span>
+    </button>
+    <button data-v="calendar" title="Calendar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+      <span class="lbl">Calendar</span>
+    </button>
+  </nav>
+
+  <!-- ===================== MAIL ===================== -->
+  <div class="view active" id="v-mail">
+    <div class="mail-layout">
+      <aside class="pane folder-pane">
+        <button class="new-btn" id="btn-new-mail">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          New mail
+        </button>
+        <div class="folders" id="folders">
+          <div class="grp">Folders</div>
+          <div class="folder active" data-f="inbox">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 13h4l2 3h4l2-3h4"/><path d="M5.5 5h13l2.5 8v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5z"/></svg>
+            <span>Inbox</span><span class="count" id="c-inbox"></span>
+          </div>
+          <div class="folder" data-f="sent">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 3L10.5 13.5M21 3l-6.5 18-4-8-8-4z"/></svg>
+            <span>Sent Items</span>
+          </div>
+          <div class="folder" data-f="drafts">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20h16"/><path d="M14.5 4.5l5 5L8 21H3v-5z"/></svg>
+            <span>Drafts</span><span class="count" id="c-drafts"></span>
+          </div>
+        </div>
+      </aside>
+
+      <section class="pane list-pane">
+        <div class="list-head">
+          <h2 id="list-title">Inbox</h2>
+          <span class="sub" id="list-sub"></span>
+        </div>
+        <div class="msg-list" id="msg-list"></div>
+      </section>
+
+      <section class="read-pane" id="read-pane">
+        <div class="empty">Select an item to read</div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ===================== CALENDAR ===================== -->
+  <div class="view" id="v-calendar">
+    <div class="cal-layout">
+      <aside class="pane cal-side">
+        <button class="new-btn" id="btn-new-event">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          New event
+        </button>
+        <div class="mini">
+          <div class="mini-head">
+            <span class="t" id="mini-title"></span>
+            <button class="mini-nav" id="mini-prev" aria-label="Previous month">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 5l-7 7 7 7"/></svg>
+            </button>
+            <button class="mini-nav" id="mini-next" aria-label="Next month">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+          <div class="mini-grid" id="mini-grid"></div>
+        </div>
+        <div class="my-cals">
+          <div class="grp">My calendars</div>
+          <div class="cal-item"><span class="swatch" style="background:#0f6cbd"></span> Calendar</div>
+          <div class="cal-item"><span class="swatch" style="background:#8764b8"></span> Birthdays</div>
+          <div class="cal-item"><span class="swatch" style="background:#038387"></span> Holidays</div>
+        </div>
+      </aside>
+
+      <section class="cal-main">
+        <div class="cal-toolbar">
+          <button class="tb-btn" id="btn-today">Today</button>
+          <button class="tb-icon" id="btn-prev" aria-label="Previous">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <button class="tb-icon" id="btn-next" aria-label="Next">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+          <h2 class="cal-title" id="cal-title"></h2>
+          <div class="view-switch" id="view-switch">
+            <button data-m="day">Day</button>
+            <button data-m="workweek">Work week</button>
+            <button class="active" data-m="week">Week</button>
+            <button data-m="month">Month</button>
+          </div>
+        </div>
+        <div id="cal-body" style="flex:1;display:flex;flex-direction:column;min-height:0"></div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MODALS ===================== -->
+<div class="backdrop" id="backdrop">
+  <div class="modal" id="modal"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+
+var API = window.location.origin + '/api';
+
+/* ---------------- helpers ---------------- */
+function esc(s){
+  return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+function el(id){ return document.getElementById(id); }
+function toast(m){
+  var t = el('toast'); t.textContent = m; t.style.display='block';
+  clearTimeout(t._h); t._h = setTimeout(function(){ t.style.display='none'; }, 2600);
+}
+
+// Stored timestamps are naive (no zone). Parse the parts explicitly so every
+// browser reads them on one consistent timeline instead of guessing UTC.
+function parseDT(s){
+  if(!s) return null;
+  var m = /^(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})(?::(\d{2}))?/.exec(String(s));
+  if(!m) return new Date(s);
+  return new Date(+m[1], +m[2]-1, +m[3], +m[4], +m[5], +(m[6]||0));
+}
+function isoLocal(d){
+  function p(n){ return (n<10?'0':'') + n; }
+  return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())
+       +'T'+p(d.getHours())+':'+p(d.getMinutes())+':00';
+}
+
+// The server's clock drives the mock data, so align "now" with it.
+var skew = 0;
+function now(){ return new Date(Date.now() + skew); }
+
+function sod(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+function addDays(d,n){ var x = new Date(d); x.setDate(x.getDate()+n); return x; }
+function addMonths(d,n){ var x = new Date(d); x.setDate(1); x.setMonth(x.getMonth()+n); return x; }
+function startOfWeek(d){ // Monday
+  var x = sod(d), dow = (x.getDay()+6)%7;
+  return addDays(x, -dow);
+}
+function sameDay(a,b){ return a && b && a.toDateString() === b.toDateString(); }
+function minsOf(d){ return d.getHours()*60 + d.getMinutes(); }
+function tFmt(d){ return d.toLocaleTimeString([], {hour:'numeric', minute:'2-digit'}); }
+function dFmt(d){ return d.toLocaleDateString([], {weekday:'short', day:'numeric', month:'short'}); }
+
+function listFmt(iso){
+  var d = parseDT(iso), n = now();
+  if(sameDay(d,n)) return tFmt(d);
+  if(sameDay(d, addDays(n,-1))) return 'Yesterday';
+  if(d.getFullYear() === n.getFullYear()) return d.toLocaleDateString([], {day:'numeric', month:'short'});
+  return d.toLocaleDateString([], {day:'numeric', month:'short', year:'numeric'});
+}
+
+var AVCOL = ['#0f6cbd','#8764b8','#038387','#ca5010','#498205','#a4262c','#c19c00','#005b70'];
+function hash(s){
+  var h = 0; s = String(s||'');
+  for(var i=0;i<s.length;i++){ h = (h*31 + s.charCodeAt(i)) >>> 0; }
+  return h;
+}
+function avatarFor(addr){ return AVCOL[hash(addr) % AVCOL.length]; }
+function initials(addr){
+  var name = String(addr||'?').split('@')[0].replace(/[._-]+/g,' ').trim();
+  var parts = name.split(/\s+/);
+  if(parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+  return name.slice(0,2).toUpperCase();
+}
+function displayName(addr){
+  var name = String(addr||'').split('@')[0].replace(/[._-]+/g,' ');
+  return name.replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+}
+
+var EVCOL = [
+  {bar:'#0f6cbd', bg:'#e8f1fb', fg:'#0b4a8f'},
+  {bar:'#8764b8', bg:'#f3eefb', fg:'#553a80'},
+  {bar:'#038387', bg:'#e4f2f2', fg:'#02605f'},
+  {bar:'#ca5010', bg:'#fdeee5', fg:'#8a3606'},
+  {bar:'#498205', bg:'#eef6e6', fg:'#335c04'},
+  {bar:'#a4262c', bg:'#fbeaeb', fg:'#75191e'},
+  {bar:'#c19c00', bg:'#fdf6e0', fg:'#7d6600'}
+];
+function evColor(e){ return EVCOL[hash(e.title || e.id) % EVCOL.length]; }
+
+/* ---------------- state ---------------- */
+var folder   = 'inbox';
+var messages = [];
+var openId   = null;
+var query    = '';
+// id of the draft the compose modal is editing; null while writing a new message
+var composeDraftId = null;
+var events   = [];
+var anchor   = new Date();   // date the calendar is focused on
+var miniRef  = new Date();   // month shown in the mini calendar
+var mode     = 'week';
+var HOUR_H   = 48;
+
+/* ================= view switching ================= */
+document.querySelectorAll('.rail button').forEach(function(b){
+  b.addEventListener('click', function(){
+    document.querySelectorAll('.rail button').forEach(function(x){ x.classList.remove('active'); });
+    b.classList.add('active');
+    document.querySelectorAll('.view').forEach(function(v){ v.classList.remove('active'); });
+    el('v-' + b.dataset.v).classList.add('active');
+    el('q').placeholder = b.dataset.v === 'mail' ? 'Search mail' : 'Search calendar';
+    if(b.dataset.v === 'calendar') loadCalendar();
+  });
+});
+
+/* ================= mail ================= */
+document.querySelectorAll('.folder').forEach(function(f){
+  f.addEventListener('click', function(){
+    document.querySelectorAll('.folder').forEach(function(x){ x.classList.remove('active'); });
+    f.classList.add('active');
+    folder = f.dataset.f;
+    clearRead();
+    loadMail();
+  });
+});
+
+var FOLDER_LABEL = {inbox:'Inbox', sent:'Sent Items', drafts:'Drafts'};
+
+function loadMail(){
+  el('list-title').textContent = FOLDER_LABEL[folder];
+  el('msg-list').innerHTML = '<div class="empty">Loading…</div>';
+  fetch(API + '/emails?folder=' + folder)
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      messages = d.emails || [];
+      if(folder === 'inbox'){
+        var un = messages.filter(function(m){ return !m.read; }).length;
+        el('c-inbox').textContent = un || '';
+      }
+      if(folder === 'drafts') el('c-drafts').textContent = messages.length || '';
+      renderMail();
+    })
+    .catch(function(){ el('msg-list').innerHTML = '<div class="empty">Couldn\'t load messages</div>'; });
+}
+
+function clearRead(){
+  openId = null;
+  el('read-pane').innerHTML = '<div class="empty">Select an item to read</div>';
+  el('read-pane').classList.remove('mobile-open');
+}
+
+// c-drafts is otherwise only written while the Drafts folder is open, so a draft
+// the agent wrote in the background would stay invisible until you clicked Drafts.
+function refreshDraftCount(){
+  return fetch(API + '/emails?folder=drafts')
+    .then(function(r){ return r.json(); })
+    .then(function(d){ el('c-drafts').textContent = (d.emails || []).length || ''; })
+    .catch(function(){});
+}
+
+// Anything that creates, edits, sends or discards a draft lands here: the open
+// folder may have gained or lost a row, and the badge has to follow either way.
+function afterDraftChange(){
+  loadMail();
+  if(folder !== 'drafts') refreshDraftCount();  // loadMail already counts them there
+}
+
+function renderMail(){
+  var list = messages;
+  if(query){
+    var q = query.toLowerCase();
+    list = list.filter(function(m){
+      return (m.subject||'').toLowerCase().indexOf(q) > -1
+          || (m.from||'').toLowerCase().indexOf(q) > -1
+          || (m.to||'').toLowerCase().indexOf(q) > -1
+          || (m.preview||'').toLowerCase().indexOf(q) > -1;
+    });
+  }
+  el('list-sub').textContent = list.length + (list.length === 1 ? ' item' : ' items');
+
+  if(!list.length){
+    el('msg-list').innerHTML = '<div class="empty">' +
+      (query ? 'No results for “' + esc(query) + '”' : 'Nothing here') + '</div>';
+    return;
+  }
+
+  el('msg-list').innerHTML = list.map(function(m){
+    // In Drafts, as in Sent, the sender is always you -- the useful name is the recipient.
+    var draft = (folder === 'drafts');
+    var who = (folder === 'sent' || draft) ? m.to : m.from;
+    // A half-written draft legitimately has no recipient and no subject yet.
+    var whoName = who ? displayName(who) : '(No recipient)';
+    var subj = m.subject || '(No subject)';
+    var cls = 'msg' + (m.read ? '' : ' unread') + (m.id === openId ? ' active' : '');
+    return '<div class="' + cls + '" data-id="' + esc(m.id) + '">' +
+      '<div class="pic" style="background:' + avatarFor(who) + '">' + esc(initials(who)) + '</div>' +
+      '<div class="msg-main">' +
+        '<div class="msg-top">' +
+          '<span class="msg-from">' + esc(whoName) + '</span>' +
+          '<span class="msg-time">' + esc(listFmt(m.date)) + '</span>' +
+        '</div>' +
+        '<div class="msg-subj">' + esc(subj) + '</div>' +
+        '<div class="msg-prev">' +
+          (draft ? '<span class="draft-tag">Draft</span>' : '') +
+          esc(m.preview || who || '') +
+        '</div>' +
+        (m.has_attachments ?
+          '<div class="msg-badges"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.5l-8.8 8.8a5 5 0 01-7-7l9-9a3.3 3.3 0 014.7 4.7l-9 9a1.7 1.7 0 01-2.3-2.3l8.3-8.3"/></svg></div>' : '') +
+      '</div>' +
+      (m.read ? '' : '<div class="dot-unread"></div>') +
+    '</div>';
+  }).join('');
+
+  el('msg-list').querySelectorAll('.msg').forEach(function(row){
+    row.addEventListener('click', function(){ openMail(row.dataset.id); });
+  });
+}
+
+function openMail(id){
+  openId = id;
+  fetch(API + '/emails/' + encodeURIComponent(id))
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d.error){ toast(d.error); return; }
+      var e = d.email, dt = parseDT(e.date);
+      // Sitting in the drafts folder is the only thing that makes a message a draft.
+      var draft = (d.folder === 'drafts');
+      el('read-pane').innerHTML =
+        '<div class="read-inner">' +
+          '<h1>' + esc(e.subject || '(No subject)') + '</h1>' +
+          '<div class="read-from">' +
+            '<div class="pic" style="background:' + avatarFor(e.from) + '">' + esc(initials(e.from)) + '</div>' +
+            '<div class="who-line">' +
+              '<div class="nm">' + esc(displayName(e.from)) + ' &lt;' + esc(e.from) + '&gt;</div>' +
+              '<div class="to">To: ' + esc(e.to || '(No recipient)') + '</div>' +
+            '</div>' +
+            '<div class="when">' + esc(dt.toLocaleString([], {weekday:'short', day:'numeric', month:'short', hour:'numeric', minute:'2-digit'})) + '</div>' +
+          '</div>' +
+          (e.has_attachments ?
+            '<div class="attach-chip">' +
+              '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.5l-8.8 8.8a5 5 0 01-7-7l9-9a3.3 3.3 0 014.7 4.7l-9 9a1.7 1.7 0 01-2.3-2.3l8.3-8.3"/></svg>' +
+              'attachment.pdf</div>' : '') +
+          '<div class="read-body">' + esc(e.body) + '</div>' +
+          '<div class="read-actions">' +
+            (draft ?
+              '<button class="btn btn-p" id="btn-edit">Edit</button>' +
+              '<button class="btn btn-s" id="btn-send-draft">Send</button>' +
+              '<button class="btn btn-s" id="btn-discard">Discard</button>'
+            :
+              '<button class="btn btn-p" id="btn-reply">Reply</button>' +
+              '<button class="btn btn-s" id="btn-fwd">Forward</button>') +
+          '</div>' +
+        '</div>';
+      el('read-pane').scrollTop = 0;
+      el('read-pane').classList.add('mobile-open');
+
+      if(draft){
+        el('btn-edit').addEventListener('click', function(){
+          compose(e.to || '', e.subject || '', e.body || '', e.id);
+        });
+        el('btn-send-draft').addEventListener('click', function(){
+          var btn = this;
+          busyBtn(btn, true, 'Sending…');
+          fetch(API + '/drafts/' + encodeURIComponent(e.id) + '/send', {method:'POST'})
+            .then(function(r){ return r.json(); })
+            .then(function(res){
+              if(res.error){ busyBtn(btn, false); toast(res.error); return; }
+              toast('Message sent'); clearRead(); afterDraftChange();
+            })
+            .catch(function(){ busyBtn(btn, false); toast('Send failed'); });
+        });
+        el('btn-discard').addEventListener('click', function(){
+          if(!window.confirm('Discard this draft? It will be deleted for good.')) return;
+          var btn = this;
+          busyBtn(btn, true, 'Discarding…');
+          fetch(API + '/drafts/' + encodeURIComponent(e.id), {method:'DELETE'})
+            .then(function(r){ return r.json(); })
+            .then(function(res){
+              if(res.error){ busyBtn(btn, false); toast(res.error); return; }
+              toast('Draft discarded'); clearRead(); afterDraftChange();
+            })
+            .catch(function(){ busyBtn(btn, false); toast('Discard failed'); });
+        });
+      } else {
+        el('btn-reply').addEventListener('click', function(){
+          var to = (e.from === meEmail) ? e.to : e.from;
+          compose(to, 'RE: ' + e.subject,
+            '\n\n----------------\nFrom: ' + e.from + '\nSent: ' + tFmt(dt) + '\nSubject: ' + e.subject + '\n\n' + e.body);
+        });
+        el('btn-fwd').addEventListener('click', function(){
+          compose('', 'FW: ' + e.subject,
+            '\n\n----------------\nFrom: ' + e.from + '\nSubject: ' + e.subject + '\n\n' + e.body);
+        });
+      }
+
+      // reflect the read-state flip the server just performed
+      var m = messages.filter(function(x){ return x.id === id; })[0];
+      if(m && !m.read){
+        m.read = true;
+        var un = messages.filter(function(x){ return !x.read; }).length;
+        if(folder === 'inbox') el('c-inbox').textContent = un || '';
+      }
+      renderMail();
+    })
+    .catch(function(){ toast("Couldn't open message"); });
+}
+
+/* ================= modal plumbing ================= */
+function closeModal(){
+  el('backdrop').classList.remove('show');
+  // Reset the mode so a stale draft id can never leak into the next compose.
+  composeDraftId = null;
+}
+
+// Writes go through the UC volume, so a save is ~1s. Show it.
+function busyBtn(btn, on, label){
+  if(!btn) return;
+  if(on){ btn.dataset.label = btn.textContent; btn.textContent = label; btn.style.opacity = .65; }
+  else { btn.textContent = btn.dataset.label || btn.textContent; btn.style.opacity = 1; }
+  btn.disabled = on;
+  // Its neighbours in the same row write too (Send / Save draft / Discard), so
+  // one in-flight request has to lock all of them, not just the one clicked.
+  var row = btn.parentNode;
+  if(row) row.querySelectorAll('button').forEach(function(b){ b.disabled = on; });
+}
+function busy(form, on, label){
+  busyBtn(form.querySelector('button[type=submit]'), on, label);
+}
+function openModal(html){
+  el('modal').innerHTML = html;
+  el('backdrop').classList.add('show');
+  var x = el('modal').querySelector('.x-btn');
+  if(x) x.addEventListener('click', closeModal);
+}
+el('backdrop').addEventListener('click', function(ev){ if(ev.target === el('backdrop')) closeModal(); });
+document.addEventListener('keydown', function(ev){ if(ev.key === 'Escape') closeModal(); });
+
+/* ================= compose ================= */
+// draftId turns the modal into an editor for a draft that already exists;
+// leave it out and the modal composes a brand new message.
+function compose(to, subject, body, draftId){
+  composeDraftId = draftId || null;
+  var editing = !!composeDraftId;
+  openModal(
+    '<div class="modal-head"><h3>' + (editing ? 'Edit draft' : 'New message') + '</h3><button class="x-btn">&times;</button></div>' +
+    '<form id="cform"><div class="modal-body">' +
+      '<div class="field"><label>To</label><input name="to" type="email" required placeholder="recipient@company.com" value="' + esc(to||'') + '"></div>' +
+      '<div class="field"><label>Subject</label><input name="subject" required value="' + esc(subject||'') + '"></div>' +
+      '<div class="field"><label>Message</label><textarea name="body" required>' + esc(body||'') + '</textarea></div>' +
+    '</div><div class="modal-foot">' +
+      '<button type="submit" class="btn btn-p">Send</button>' +
+      // Deliberately not a submit button: the fields above are HTML-required, and a
+      // draft is allowed to be half-written, so validation must not block saving.
+      '<button type="button" class="btn btn-s" id="csave">Save draft</button>' +
+      '<button type="button" class="btn btn-s" id="cx">' + (editing ? 'Cancel' : 'Discard') + '</button>' +
+    '</div></form>'
+  );
+  el('cx').addEventListener('click', closeModal);
+
+  el('csave').addEventListener('click', function(){
+    var btn = this, f = el('cform'), id = composeDraftId;
+    busyBtn(btn, true, 'Saving…');
+    fetch(API + '/drafts' + (id ? '/' + encodeURIComponent(id) : ''), {
+      method: id ? 'PATCH' : 'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({to:f.to.value, subject:f.subject.value, body:f.body.value})
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d.error){ busyBtn(btn, false); toast(d.error); return; }
+      closeModal(); toast('Draft saved'); afterDraftChange();
+      if(id && openId === id) openMail(id);   // the read pane is showing stale text
+    })
+    .catch(function(){ busyBtn(btn, false); toast('Could not save draft'); });
+  });
+
+  el('cform').addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var f = this, id = composeDraftId;
+    var payload = {to:f.to.value, subject:f.subject.value, body:f.body.value};
+    busy(f, true, 'Sending…');
+    var p;
+    if(id){
+      // Save what is on screen first: send_draft posts whatever the server has
+      // stored, so skipping this would silently drop edits made in the modal.
+      p = fetch(API + '/drafts/' + encodeURIComponent(id), {
+            method:'PATCH', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify(payload)
+          })
+          .then(function(r){ return r.json(); })
+          .then(function(d){
+            if(d.error) return d;
+            return fetch(API + '/drafts/' + encodeURIComponent(id) + '/send', {method:'POST'})
+              .then(function(r2){ return r2.json(); });
+          });
+    } else {
+      p = fetch(API + '/emails/send', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify(payload)
+          })
+          .then(function(r){ return r.json(); });
+    }
+    p.then(function(d){
+      if(d.error){ busy(f, false); toast(d.error); return; }
+      var wasOpen = (id && openId === id);
+      closeModal(); toast('Message sent');
+      if(wasOpen) clearRead();
+      afterDraftChange();
+    })
+    .catch(function(){ busy(f, false); toast('Send failed'); });
+  });
+}
+el('btn-new-mail').addEventListener('click', function(){ compose('', '', ''); });
+
+/* ================= calendar data ================= */
+function loadCalendar(){
+  return Promise.all([
+    fetch(API + '/calendar?upcoming=true').then(function(r){ return r.json(); }),
+    fetch(API + '/calendar?upcoming=false').then(function(r){ return r.json(); })
+  ]).then(function(res){
+    var seen = {};
+    events = [];
+    res.forEach(function(d){
+      (d.events || []).forEach(function(e){
+        if(seen[e.id]) return;
+        seen[e.id] = 1;
+        e._s = parseDT(e.start_time);
+        e._e = parseDT(e.end_time) || new Date(e._s.getTime() + 30*60000);
+        events.push(e);
+      });
+    });
+    events.sort(function(a,b){ return a._s - b._s; });
+    renderCalendar();
+    renderMini();
+  }).catch(function(){
+    el('cal-body').innerHTML = '<div class="empty">Couldn\'t load the calendar</div>';
+  });
+}
+
+function eventsOn(day){
+  return events.filter(function(e){ return sameDay(e._s, day); });
+}
+
+// Side-by-side placement for overlapping events, the way Outlook stacks them.
+function layout(evs){
+  var items = evs.map(function(e){
+    return {e:e, s:minsOf(e._s), t:Math.max(minsOf(e._e), minsOf(e._s)+15)};
+  }).sort(function(a,b){ return a.s - b.s || b.t - a.t; });
+
+  var cluster = [], clusterEnd = -1, out = [];
+  function flush(){
+    if(!cluster.length) return;
+    var cols = [];
+    cluster.forEach(function(it){
+      var placed = false;
+      for(var i=0;i<cols.length;i++){
+        if(cols[i] <= it.s){ cols[i] = it.t; it.col = i; placed = true; break; }
+      }
+      if(!placed){ it.col = cols.length; cols.push(it.t); }
+    });
+    cluster.forEach(function(it){ it.ncols = cols.length; out.push(it); });
+    cluster = []; clusterEnd = -1;
+  }
+  items.forEach(function(it){
+    if(cluster.length && it.s >= clusterEnd) flush();
+    cluster.push(it);
+    clusterEnd = Math.max(clusterEnd, it.t);
+  });
+  flush();
+  return out;
+}
+
+/* ================= calendar rendering ================= */
+function rangeTitle(){
+  if(mode === 'day') return anchor.toLocaleDateString([], {day:'numeric', month:'long', year:'numeric'});
+  if(mode === 'month') return anchor.toLocaleDateString([], {month:'long', year:'numeric'});
+  var s = startOfWeek(anchor), e = addDays(s, mode === 'workweek' ? 4 : 6);
+  var opts = {day:'numeric', month:'short'};
+  if(s.getFullYear() !== e.getFullYear()) opts.year = 'numeric';
+  return s.toLocaleDateString([], opts) + ' – ' + e.toLocaleDateString([], {day:'numeric', month:'short', year:'numeric'});
+}
+
+function daysInView(){
+  if(mode === 'day') return [sod(anchor)];
+  var s = startOfWeek(anchor), n = (mode === 'workweek') ? 5 : 7, out = [];
+  for(var i=0;i<n;i++) out.push(addDays(s,i));
+  return out;
+}
+
+function renderCalendar(){
+  el('cal-title').textContent = rangeTitle();
+  if(mode === 'month') renderMonth(); else renderTimeGrid();
+}
+
+function renderTimeGrid(){
+  var days = daysInView(), n = days.length, today = now();
+  var cols = '60px repeat(' + n + ',1fr)';
+
+  var head = '<div class="grid-head" style="grid-template-columns:' + cols + '">' +
+    '<div class="gutter-sp"></div>' +
+    days.map(function(d){
+      return '<div class="dayhead' + (sameDay(d,today) ? ' today' : '') + '">' +
+        '<div class="dow">' + esc(d.toLocaleDateString([], {weekday:'short'})) + '</div>' +
+        '<div class="dnum">' + d.getDate() + '</div></div>';
+    }).join('') + '</div>';
+
+  var hours = '<div class="hours">';
+  for(var h=0; h<24; h++){
+    var lbl = (h === 0) ? '' : new Date(2000,0,1,h).toLocaleTimeString([], {hour:'numeric'});
+    hours += '<div class="hour-lbl" style="height:' + HOUR_H + 'px">' + esc(lbl) + '</div>';
+  }
+  hours += '</div>';
+
+  var bg = 'repeating-linear-gradient(to bottom,var(--line) 0 1px,transparent 1px ' + HOUR_H + 'px)';
+
+  var body = days.map(function(d){
+    var weekend = (d.getDay() === 0 || d.getDay() === 6);
+    var inner = layout(eventsOn(d)).map(function(it){
+      var e = it.e, c = evColor(e);
+      var top = it.s / 60 * HOUR_H;
+      var hgt = Math.max((it.t - it.s) / 60 * HOUR_H - 2, 18);
+      var w = 100 / it.ncols;
+      return '<div class="ev" data-id="' + esc(e.id) + '" style="' +
+        'top:' + top + 'px;height:' + hgt + 'px;' +
+        'left:calc(' + (it.col * w) + '% + 2px);width:calc(' + w + '% - 5px);' +
+        'background:' + c.bg + ';border-left-color:' + c.bar + ';color:' + c.fg + '">' +
+        '<div class="et">' + esc(e.title) + '</div>' +
+        (hgt > 32 ? '<div class="eh">' + esc(tFmt(e._s)) + (e.location ? ' · ' + esc(e.location) : '') + '</div>' : '') +
+      '</div>';
+    }).join('');
+
+    var nowmark = '';
+    if(sameDay(d, today)){
+      nowmark = '<div class="nowline" style="top:' + (minsOf(today)/60*HOUR_H) + 'px"></div>';
+    }
+    return '<div class="daycol' + (weekend ? ' weekend' : '') + '" style="background-image:' + bg + '">' +
+      inner + nowmark + '</div>';
+  }).join('');
+
+  el('cal-body').innerHTML = head +
+    '<div class="grid-scroll" id="grid-scroll">' +
+      '<div class="grid-body" style="grid-template-columns:' + cols + ';height:' + (24*HOUR_H) + 'px">' +
+        hours + body +
+      '</div>' +
+    '</div>';
+
+  el('cal-body').querySelectorAll('.ev').forEach(function(node){
+    node.addEventListener('click', function(){ showEvent(node.dataset.id); });
+  });
+
+  // Land on the working day rather than midnight.
+  var sc = el('grid-scroll');
+  sc.scrollTop = (sameDay(anchor, today) ? Math.max(minsOf(today)/60*HOUR_H - 2*HOUR_H, 0) : 7.5*HOUR_H);
+}
+
+function renderMonth(){
+  var first = new Date(anchor.getFullYear(), anchor.getMonth(), 1);
+  var start = startOfWeek(first), today = now(), html = '';
+
+  html += '<div class="grid-head" style="grid-template-columns:repeat(7,1fr)">';
+  for(var i=0;i<7;i++){
+    html += '<div class="dayhead"><div class="dow">' +
+      esc(addDays(start,i).toLocaleDateString([], {weekday:'short'})) + '</div></div>';
+  }
+  html += '</div><div class="month-grid">';
+
+  for(var k=0;k<42;k++){
+    var d = addDays(start,k);
+    var out = (d.getMonth() !== anchor.getMonth());
+    var evs = eventsOn(d);
+    html += '<div class="mcell' + (out ? ' out' : '') + (sameDay(d,today) ? ' today' : '') + '">' +
+      '<span class="mnum">' + d.getDate() + '</span>';
+    evs.slice(0,3).forEach(function(e){
+      var c = evColor(e);
+      html += '<div class="mchip" data-id="' + esc(e.id) + '" style="background:' + c.bg + ';color:' + c.fg + '">' +
+        '<span class="cdot" style="background:' + c.bar + '"></span>' +
+        '<span class="ct">' + esc(tFmt(e._s)) + ' ' + esc(e.title) + '</span></div>';
+    });
+    if(evs.length > 3){
+      html += '<div class="mmore" data-day="' + d.getTime() + '">+' + (evs.length-3) + ' more</div>';
+    }
+    html += '</div>';
+  }
+  html += '</div>';
+
+  el('cal-body').innerHTML = html;
+  el('cal-body').querySelectorAll('.mchip').forEach(function(node){
+    node.addEventListener('click', function(){ showEvent(node.dataset.id); });
+  });
+  el('cal-body').querySelectorAll('.mmore').forEach(function(node){
+    node.addEventListener('click', function(){
+      anchor = new Date(+node.dataset.day); mode = 'day'; syncSwitch(); renderCalendar();
+    });
+  });
+}
+
+function renderMini(){
+  var first = new Date(miniRef.getFullYear(), miniRef.getMonth(), 1);
+  var start = startOfWeek(first), today = now();
+  el('mini-title').textContent = miniRef.toLocaleDateString([], {month:'long', year:'numeric'});
+
+  var html = '';
+  ['M','T','W','T','F','S','S'].forEach(function(d){ html += '<div class="mini-dow">' + d + '</div>'; });
+  for(var k=0;k<42;k++){
+    var d = addDays(start,k);
+    var cls = 'mini-day';
+    if(d.getMonth() !== miniRef.getMonth()) cls += ' out';
+    if(sameDay(d,today)) cls += ' today';
+    else if(sameDay(d,anchor)) cls += ' sel';
+    if(eventsOn(d).length) cls += ' has';
+    html += '<div class="' + cls + '" data-t="' + d.getTime() + '">' + d.getDate() + '</div>';
+  }
+  el('mini-grid').innerHTML = html;
+  el('mini-grid').querySelectorAll('.mini-day').forEach(function(node){
+    node.addEventListener('click', function(){
+      anchor = new Date(+node.dataset.t);
+      if(mode === 'month') miniRef = new Date(anchor);
+      renderCalendar(); renderMini();
+    });
+  });
+}
+
+/* ================= event details ================= */
+function showEvent(id){
+  fetch(API + '/calendar/' + encodeURIComponent(id))
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d.error){ toast(d.error); return; }
+      var e = d.event, s = parseDT(e.start_time), en = parseDT(e.end_time), c = evColor(e);
+      var att = (e.attendees || []);
+      openModal(
+        '<div class="modal-head">' +
+          '<span class="swatch" style="background:' + c.bar + '"></span>' +
+          '<h3>' + esc(e.title) + '</h3><button class="x-btn">&times;</button></div>' +
+        '<div class="modal-body">' +
+          '<div class="det-row"><span class="ic">🕒</span><div class="vl">' +
+            esc(dFmt(s)) + '<br>' + esc(tFmt(s)) + ' – ' + esc(tFmt(en)) +
+            (e.is_recurring ? '<br><span class="k">Repeats weekly</span>' : '') +
+          '</div></div>' +
+          (e.location ? '<div class="det-row"><span class="ic">📍</span><div class="vl">' + esc(e.location) + '</div></div>' : '') +
+          '<div class="det-row"><span class="ic">👥</span><div class="vl">' +
+            '<div class="k">' + att.length + ' attendee' + (att.length === 1 ? '' : 's') + ' · organiser ' + esc(displayName(e.organizer)) + '</div>' +
+            att.map(esc).join('<br>') +
+          '</div></div>' +
+          (e.description ? '<div class="det-row"><span class="ic">📝</span><div class="vl">' + esc(e.description) + '</div></div>' : '') +
+        '</div>' +
+        '<div class="modal-foot">' +
+          '<button class="btn btn-s" id="ex">Close</button>' +
+          '<button class="btn btn-d" id="edel">Delete</button>' +
+        '</div>'
+      );
+      el('ex').addEventListener('click', closeModal);
+      el('edel').addEventListener('click', function(){
+        fetch(API + '/calendar/' + encodeURIComponent(e.id), {method:'DELETE'})
+          .then(function(r){ return r.json(); })
+          .then(function(res){
+            if(res.error){ toast(res.error); return; }
+            closeModal(); toast('Event deleted'); loadCalendar();
+          })
+          .catch(function(){ toast('Delete failed'); });
+      });
+    })
+    .catch(function(){ toast("Couldn't load event"); });
+}
+
+/* ================= new event ================= */
+el('btn-new-event').addEventListener('click', function(){
+  var d = sameDay(anchor, now()) ? now() : new Date(anchor.getFullYear(), anchor.getMonth(), anchor.getDate(), 9, 0);
+  d.setMinutes(d.getMinutes() > 30 ? 60 : 30, 0, 0);
+  function p(n){ return (n<10?'0':'') + n; }
+
+  openModal(
+    '<div class="modal-head"><h3>New event</h3><button class="x-btn">&times;</button></div>' +
+    '<form id="eform"><div class="modal-body">' +
+      '<div class="field"><label>Title</label><input name="title" required placeholder="Add a title"></div>' +
+      '<div class="two">' +
+        '<div class="field"><label>Date</label><input name="date" type="date" required value="' +
+          d.getFullYear() + '-' + p(d.getMonth()+1) + '-' + p(d.getDate()) + '"></div>' +
+        '<div class="field"><label>Start</label><input name="start" type="time" required value="' +
+          p(d.getHours()) + ':' + p(d.getMinutes()) + '"></div>' +
+      '</div>' +
+      '<div class="two">' +
+        '<div class="field"><label>Duration</label><select name="dur">' +
+          '<option value="15">15 minutes</option><option value="30" selected>30 minutes</option>' +
+          '<option value="60">1 hour</option><option value="90">1.5 hours</option>' +
+          '<option value="120">2 hours</option><option value="480">All day</option>' +
+        '</select></div>' +
+        '<div class="field"><label>Location</label><input name="location" placeholder="Room or link"></div>' +
+      '</div>' +
+      '<div class="field"><label>Invite attendees</label><input name="attendees" placeholder="alice@company.com, bob@company.com"></div>' +
+      '<div class="field"><label>Description</label><textarea name="description" placeholder="Agenda or notes…"></textarea></div>' +
+    '</div><div class="modal-foot">' +
+      '<button type="submit" class="btn btn-p">Save</button>' +
+      '<button type="button" class="btn btn-s" id="ecx">Discard</button>' +
+    '</div></form>'
+  );
+  el('ecx').addEventListener('click', closeModal);
+  el('eform').addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var f = this;
+    var s = parseDT(f.date.value + 'T' + f.start.value + ':00');
+    var e2 = new Date(s.getTime() + parseInt(f.dur.value,10) * 60000);
+    var att = f.attendees.value
+      ? f.attendees.value.split(',').map(function(x){ return x.trim(); }).filter(Boolean)
+      : [];
+    busy(f, true, 'Saving…');
+    fetch(API + '/calendar/create', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        title: f.title.value,
+        start_time: isoLocal(s),   // naive, matching how the server stores time
+        end_time: isoLocal(e2),
+        location: f.location.value,
+        attendees: att,
+        description: f.description.value
+      })
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(d2){
+      if(d2.error){ busy(f, false); toast(d2.error); return; }
+      closeModal(); toast('Event created');
+      anchor = new Date(s); loadCalendar();
+    })
+    .catch(function(){ busy(f, false); toast('Could not create event'); });
+  });
+});
+
+/* ================= calendar nav ================= */
+function step(dir){
+  if(mode === 'month'){ anchor = addMonths(anchor, dir); miniRef = new Date(anchor); }
+  else if(mode === 'day'){ anchor = addDays(anchor, dir); }
+  else { anchor = addDays(anchor, 7*dir); }
+  renderCalendar(); renderMini();
+}
+el('btn-prev').addEventListener('click', function(){ step(-1); });
+el('btn-next').addEventListener('click', function(){ step(1); });
+el('btn-today').addEventListener('click', function(){
+  anchor = now(); miniRef = new Date(anchor); renderCalendar(); renderMini();
+});
+el('mini-prev').addEventListener('click', function(){ miniRef = addMonths(miniRef,-1); renderMini(); });
+el('mini-next').addEventListener('click', function(){ miniRef = addMonths(miniRef, 1); renderMini(); });
+
+function syncSwitch(){
+  document.querySelectorAll('#view-switch button').forEach(function(b){
+    b.classList.toggle('active', b.dataset.m === mode);
+  });
+}
+document.querySelectorAll('#view-switch button').forEach(function(b){
+  b.addEventListener('click', function(){
+    mode = b.dataset.m; syncSwitch(); renderCalendar();
+  });
+});
+
+/* ================= search ================= */
+el('q').addEventListener('input', function(){
+  query = this.value.trim();
+  renderMail();
+});
+
+/* ================= reset ================= */
+// Reset only ever touches the person who clicked it. Each mailbox is its own file on
+// the volume, so putting one back rewrites that one file - nobody else's mail is
+// read, written, or even loaded.
+el('reset-demo').addEventListener('click', function(){
+  if(!window.confirm(
+      'Start the demo again?\n\n' +
+      'Everything you have changed - mail you have sent, drafts, calendar events, ' +
+      'what you have read - is discarded and the mailbox goes back to how it started.\n\n' +
+      'Only affects you. Anyone else running the demo keeps their own mailbox.')) return;
+
+  var btn = el('reset-demo');
+  btn.disabled = true;
+  var label = btn.lastChild;
+  var was = label.nodeValue;
+  label.nodeValue = ' Resetting…';
+
+  fetch(API + '/demo/reset', {
+    method:'POST', headers:{'Content-Type':'application/json'}, body:'{}'
+  })
+  .then(function(r){
+    if(!r.ok) throw new Error('Reset failed');
+    return r.json();
+  })
+  .then(function(){
+    // Reload rather than re-render: the folder counts, the open message, the mini
+    // calendar and the week view are all stale at once, and a reload puts every one
+    // of them back without a second pass over the same state.
+    window.location.reload();
+  })['catch'](function(err){
+    toast(err.message || 'Reset failed');
+    btn.disabled = false;
+    label.nodeValue = was;
+  });
+});
+
+/* ================= init ================= */
+var meEmail = '';
+fetch(API + '/me').then(function(r){ return r.json(); }).then(function(d){
+  meEmail = d.user || '';
+  el('who').textContent = meEmail;
+  el('me-pic').textContent = initials(meEmail);
+  el('me-pic').title = meEmail;
+  if(d.now){
+    var srv = parseDT(d.now);
+    if(srv) skew = srv.getTime() - Date.now();
+  }
+  anchor = now();
+  miniRef = new Date(anchor);
+}).catch(function(){}).then(function(){
+  loadMail();
+  refreshDraftCount();  // the badge has to be right before anyone opens Drafts
+});
+})();
+</script>
+</body>
+</html>

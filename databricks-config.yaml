@@ -1,0 +1,197 @@
+# Where the workshop environment gets deployed.
+#
+# Everything that knows about a Databricks target reads this file, so moving the
+# workshop to another workspace, catalog or schema means editing here and nothing
+# else. Run `make help` to see what uses it.
+#
+# Deliberately not called databricks.yml - that name is reserved for Databricks
+# Asset Bundles, and the CLI would try to interpret this as one.
+
+# Databricks CLI profile from ~/.databrickscfg
+profile: demo
+
+# The data sits in three schemas rather than one. The two data schemas match the
+# two Genie Agents, which is also roughly how the source systems divide in a real
+# company: what happened to a customer's payroll is owned by a different team
+# from whether the platform itself was healthy.
+unity_catalog:
+  catalog: vencam_sandbox
+  schemas:
+    ops: agent_bricks_ws_saldo_ops            # customers, employees, payroll
+    platform: agent_bricks_ws_saldo_platform  # availability, incidents, changes, cases
+    files: agent_bricks_ws_saldo_files        # volumes
+
+# SQL warehouse used to create the Delta tables. Any serverless warehouse will
+# do; it is only used at seed time, never by the workshop itself.
+warehouse_id: 80cda2c5133fbdc6
+
+volumes:
+  # Saldo product documentation and signed customer contracts.
+  # Knowledge Assistant reads this one.
+  docs: {schema: files, name: saldo_docs}
+
+  # Mailbox and calendar state for the mocked Outlook MCP server.
+  outlook: {schema: files, name: outlook_demo}
+
+  # Files attached to support cases: rejection reports, submitted payroll
+  # files, validator logs. Lives with the case tables rather than with the other
+  # volumes - it is part of the case record, and a person looking for what was
+  # attached to a case should find it in the same schema as the case.
+  attachments: {schema: platform, name: case_attachments}
+
+  # Parquet staging used while loading tables. Not part of the workshop.
+  staging: {schema: files, name: ws_staging}
+
+# The repository is the source of truth for every row of workshop data.
+# Generators write these files and the output is committed; the seed scripts
+# only read them and load. Nothing is invented at deploy time, so two people
+# seeding from the same commit get identical data.
+#
+# The folders say where a thing ends up rather than how it was made:
+#
+#   saldo_payroll/    the ops schema: customers, their employees, their runs
+#   saldo_platform/   the platform schema: availability, incidents, changes, cases
+#   saldo_docs/       the documents volume the Knowledge Assistant reads
+#   outlook_initial/  the mailbox each person starts from, bundled into the app
+#
+# Inside the two schema folders, one rule: a .json is written by a person and a
+# .csv is produced by a generator. Never hand-edit a .csv - the next
+# `make generate/data` will overwrite it.
+data:
+  dir: workshop/data
+  dirs:
+    payroll: saldo_payroll
+    platform: saldo_platform
+    docs: saldo_docs
+    outlook: outlook_initial
+  files:
+    # clients.json also produces the contacts and client_modules tables, which
+    # have no file of their own.
+    clients: saldo_payroll/clients.json
+    cost_centres: saldo_payroll/cost_centres.json
+    employees: saldo_payroll/employees.csv
+    payroll_runs: saldo_payroll/payroll_runs.csv
+    payroll_run_items: saldo_payroll/payroll_run_items.csv
+
+    # Written by hand. The support_cases, case_notes, incidents and changes
+    # tables are all built from these three at load time - they carry an anchor
+    # ("three days before the incident") rather than a date, which is what lets
+    # the whole story be re-pointed at another workshop day. A committed CSV of
+    # the resolved rows would be the same data twice, and the copy that nobody
+    # regenerates is the one that ends up wrong.
+    cases: saldo_platform/cases.json
+    incidents: saldo_platform/incidents.json
+    changes: saldo_platform/changes.json
+
+    # No written source: generated from a fixed seed, so the CSV is the source.
+    service_availability_daily: saldo_platform/service_availability_daily.csv
+
+    # Generated from the tables above, then bundled into mcp-mocked-outlook. The
+    # one .json nobody writes by hand, which is why it sits on its own.
+    outlook_seed: outlook_initial/outlook_seed.json
+  # Parsed out of the published documentation rather than restated, so the
+  # table cannot drift from what the Knowledge Assistant cites.
+  derived_from_docs:
+    reason_codes: saldo_docs/saldo/product/4-validation-error-reference.md
+
+# Delta tables, grouped by the schema they live in.
+tables:
+  ops:
+    - clients
+    - contacts
+    - client_modules
+    - cost_centres
+    - reason_codes
+    - employees
+    - payroll_runs
+    - payroll_run_items
+  platform:
+    - service_availability_daily
+    - support_cases
+    - case_notes
+    - incidents
+    - changes
+
+# Per-person views over the seeded tables. Everything that reads case data should
+# read these: they lay whatever the person asking has changed over the shared seed,
+# so two people can run the workshop at once without colliding. Built by
+# deploy_state.py, which also explains why.
+views:
+  platform:
+    - support_cases_live
+    - case_notes_live
+
+# Unity Catalog functions the agents call as tools. Deterministic policy
+# arithmetic lives here rather than in a prompt, so it can be audited.
+functions:
+  platform:
+    - calculate_sla_credit
+
+# A Knowledge Assistant over the same document volume the supervisor can reach
+# with a volume tool. Both are deployed on purpose: the workshop compares them.
+# It answers from its own snapshot, so deploy/data runs the documents first and
+# this immediately after, and the sync is part of the script rather than
+# something to remember.
+knowledge_assistant:
+  # Named for the workshop rather than for Saldo, the same way the schemas and
+  # the /Shared folder are: a workspace holds other people's assistants too, and
+  # "Saldo documentation" gives no clue which demo it belongs to or who to ask
+  # before deleting it. The script finds the assistant by this name, so changing
+  # it again means renaming the existing one rather than only editing here -
+  # otherwise the next deploy builds a second assistant and orphans the first.
+  name: agent-bricks-ws-saldo-docs
+  description: >-
+    Saldo's published product and policy documentation and its customer
+    contracts, indexed for question answering. Part of the Agent Bricks
+    workshop; see the agent_bricks_ws_saldo_* schemas.
+  volume: docs
+
+# Semantic search over the support case notes. Delta Sync, because that is the
+# only index type a Supervisor Agent accepts.
+ai_search:
+  endpoint: saldo-workshop
+  schema: platform
+  index: case_notes_index
+
+# Where the notebooks are published for attendees. /Shared so nobody has to
+# clone anything, granted to a group rather than person by person.
+notebooks:
+  folder: /Shared/agent-bricks-ws
+  grant_to: users
+  # Run after publishing with --run, to prove the notebooks work in the workspace
+  # and not only on the machine that wrote them.
+  verify_with: 2-agents-inference
+  # uv ships with serverless environment version 4 and later, and the notebooks
+  # install their dependencies with it. An unpinned run can land on an older
+  # default, so the check pins the version attendees will actually be on.
+  serverless_env_version: 4
+
+apps:
+  outlook:
+    name: mcp-mocked-outlook
+    # Each app is self-contained in its own directory, so deploying it means
+    # syncing that directory and nothing else.
+    source: workshop/apps/mcp-mocked-outlook
+    exclude:
+      - .venv/
+      - __pycache__/
+  # CaseHub is an AGENT, not an MCP server. The `agent-` prefix is what makes a
+  # Databricks App eligible as a Supervisor subagent, the same way `mcp-` does
+  # for an MCP server. One process serves both its own UI and the MLflow agent
+  # routes (/responses, /invocations, /agent/info, /health).
+  casehub:
+    name: agent-casehub
+    source: workshop/apps/agent-casehub
+    exclude:
+      - .venv/
+      - __pycache__/
+      # Running the agent locally leaves an MLflow tracking store behind.
+      # It is test residue, not part of the app.
+      - mlruns/
+      - mlflow.db
+
+workshop:
+  # Pin a date to freeze the story timeline for a scheduled session, e.g.
+  # 2026-09-15. The incident then always falls on the Tuesday before it.
+  # Leave empty to anchor on today.
+  date:
